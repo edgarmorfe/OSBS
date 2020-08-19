@@ -1,0 +1,121 @@
+﻿@model WebUI.Models.ScheduleModel
+
+@{
+    ViewBag.Title = "View Passengers";
+}
+
+<main>
+    <div class="container">
+        <div class="row">
+
+            <div id="tabs" class="col s12 m12">
+                <ul class="tabs card">
+                    <li class="tab col s6">
+                        @if (Model.ResType.ToLower().Equals("ot"))
+                        {<a id="ot" class="active" href="#overtime">Overtime</a>}
+                        else
+                        {<a id="ot" href="#overtime">Overtime</a>}
+                    </li>
+                    <li class="tab col s6">
+                        @if (Model.ResType.ToLower().Equals("bs"))
+                        {<a id="bs" class="active" href="#business">Business</a> }
+                        else
+                        {<a id="bs" href="#business">Business</a>}
+                    </li>
+                </ul>
+            </div>
+
+            <div id="overtime">
+                @{Html.RenderPartial("_scheduleDashboard");
+                }
+            </div>
+            <div id="business">
+                @{Html.RenderPartial("_scheduleBusinessDashboard");
+                }
+            </div>
+            @foreach (var detail in Model.Passengers)
+            {
+                <div class="col s12 m8">
+                    <ul class="collapsible">
+                        <li class="active">
+                            <div class="collapsible-header">
+                                @if (detail.Status.ToLower() == "inroute" || detail.Status.ToLower() == "onboard")
+                                {
+                                    <a href="#" class="btn-floating pulse">
+                                        <i class="material-icons">drive_eta</i>
+                                    </a>
+                                }
+                                else if (detail.Status.ToLower() == "assigned")
+                                {
+                                    <a href=@Url.Action("Edit", "Schedule", new { id = detail.Id, bookingType = Model.ResType}) class="btn-floating green">
+                                        <i class="material-icons">drive_eta</i>
+                                    </a>
+                                }
+                                else if (detail.Status.ToLower() == "dropoff")
+                                {
+                                    <a href="#" class="btn-floating blue">
+                                        <i class="material-icons">drive_eta</i>
+                                    </a>
+                                }
+                                else
+                                {
+                                    <i class="material-icons red-text">drive_eta</i>
+                                }
+                                <span>@detail.ShuttlePlateNo</span>
+
+                                <span style="margin-left:50px;">@detail.RouteName</span>
+                                <span class="badge" style="color:rgba(0,0,0,0.87)">@detail.DriverName</span>
+                                <i class="material-icons">person_pin</i>
+                            </div>
+
+                            <div class="collapsible-body">
+                                <div class="row">
+                                    @foreach (var pas in detail.Passengers)
+                                    {
+                                        <div class="col s6">
+                                            <ul class="collection flush">
+                                                <li class="collection-item avatar active">
+                                                    @if (pas.Status.ToLower() == "onboard" || pas.Status.ToLower() == "inroute")
+                                                    {
+                                                        <div class="badged-circle online">
+                                                            <img class="circle" src="@pas.ProfilePicPath" alt="avatar">
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="badged-circle">
+                                                            <img class="circle" src="@pas.ProfilePicPath" alt="avatar">
+                                                        </div>
+                                                    }
+                                                    <span class="title">@pas.FullName</span>
+                                                    @if (pas.ResType.Equals("bs"))
+                                                    {
+
+                                                        <br />
+                                                        <span class="title">@detail.SchedDate.ToShortTimeString()</span>
+                                                        <p class="truncate">VIP: @pas.VIP</p>
+                                                        <p class="truncate">Passenger: @pas.PassCount</p>
+                                                    }
+                                                    else
+                                                    {
+                                                        <p class="truncate">@pas.DropOff</p>
+                                                    }
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="fixed-action-btn">
+        <a href="@Url.Action("Add", "Schedule", new { selectedTime = "01/01/2019 18:00", pickUpId = 0, dropOff ="", resId=0, resType="ot"})" class="btn-floating btn-large">
+            <i class="large material-icons">add</i>
+        </a>
+    </div>
+</main>

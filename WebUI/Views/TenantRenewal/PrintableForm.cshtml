@@ -1,0 +1,624 @@
+﻿@model WebUI.Models.TenantRenewalView
+
+@{
+    ViewBag.Title = "Printable Form";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <main>
+        <div class="container">
+            <div class="row">
+                <div class="col s12">
+                    <div class="card">
+                        <table style="border-collapse: unset;">
+                            <tbody>
+                                <tr>
+                                    <td width="30%" style="background-color:#050B1C; color:#FFFFFF; vertical-align:top;">
+                                        <table style="font-weight: bold; font-size: 16px;">
+                                            <tbody>
+                                                <tr>
+                                                    <td>Tenant;</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>@Model.Name</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Powerplant Mall</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>65.75 sqm</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>@Model.Category</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>&nbsp;</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Lease Term:</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>3/31/2019-</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>3/31/2020</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Type: Fixed</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>&nbsp;</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Rate Summary</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Current Rate:</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>1,590 + 30%</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>MGR: 1740</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Accept Rate:</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>1,550 + 3%</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>MGR: 1700</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>&nbsp;</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Type of Renewal:</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Lease Renewal</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>&nbsp;</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Category</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Specialist:</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Gia Torres</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                    <td width="70%">
+                                        <table style="border-collapse: unset;">
+                                            <tbody>
+                                                <tr>
+                                                    <td style="text-align: center;"><strong>POWERPLANT MALL</strong></td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="text-align: center;">Tenant Compliance Checklist for Renewal</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>&nbsp;</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Leasing Team</strong></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <table style="margin:0; border-collapse:unset; width:100%;">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td width="30%">Date Approved</td>
+                                                                    @if (Model.LeasingHeadVerifiedDate.Year.Equals(1753))
+                                                                    {
+                                                                        <td width="40%">&nbsp;</td>}
+                                                                    else
+                                                                    {
+                                                                        <td width="40%">@Model.LeasingHeadVerifiedDate.ToShortDateString()</td>
+                                                                    }
+                                                                    <td width="30%">&nbsp;</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    @if (Model.ReviewDate.Year.Equals(1753))
+                                                                    {
+                                                                        <td width="30%" style="vertical-align:bottom; font-size:10px;">Reviewed:</td>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <td width="30%" style="vertical-align:bottom; font-size:10px;">Reviewed: @Model.ReviewDate.ToShortDateString()</td>
+                                                                    }
+                                                                    <td width="40%">Reccomendation Status:</td>
+                                                                    <td width="30%">@Model.LeasingStatusString</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    @if (Model.ReviewDate.Year.Equals(1753))
+                                                                    {
+                                                                        <td width="30%">&nbsp;</td>}
+                                                                    else
+                                                                    {
+                                                                        <td width="30%" style="vertical-align:top; font-size:10px;">@Model.LeasingReviewerName</td>
+                                                                    }
+                                                                    <td width="40%">Requirements:</td>
+                                                                    <td width="30%">Signed Renewal</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td width="30%">&nbsp;</td>
+                                                                    <td width="40%">&nbsp;</td>
+                                                                    <td width="30%">&nbsp;</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    @if (Model.LeasingHeadVerifiedDate.Year.Equals(1753))
+                                                                    {
+                                                                        <td width="30%" style="vertical-align:bottom; font-size:10px;">
+                                                                            Verified:
+                                                                        </td>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <td width="30%" style="vertical-align:bottom; font-size:10px;">Verified: @Model.LeasingHeadVerifiedDate.ToShortDateString()</td>
+                                                                    }
+                                                                    <td width="40%">Category Specialist Remarks:</td>
+                                                                    <td width="30%">@Model.LeasingCategorySpecialistRemarks</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    @if (Model.LeasingHeadVerifiedDate.Year.Equals(1753))
+                                                                    {
+                                                                        <td width="30%">&nbsp;</td>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <td width="30%" style="vertical-align:top; font-size:10px;">@Model.LeasingVerifierName</td>
+                                                                    }
+                                                                    <td width="40%">Leasing Head Remarks:</td>
+                                                                    <td width="30%">@Model.LeasingHeadRemarks</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>&nbsp;</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Design Team</strong></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <table style="margin:0; border-collapse:unset; width:100%;">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td width="30%">Date Approved</td>
+                                                                    @if (Model.DesignHeadVerifiedDate.Year.Equals(1753))
+                                                                    {
+                                                                        <td width="40%">&nbsp;</td>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <td width="40%">@Model.DesignHeadVerifiedDate.ToShortDateString()</td>
+                                                                    }
+                                                                    <td width="30%">&nbsp;</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    @if (Model.DesignReviewDoneDate.Year.Equals(1753))
+                                                                    {
+                                                                        <td width="30%" style="vertical-align:bottom; font-size:10px;">Reviewed:</td>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <td width="30%" style="vertical-align:bottom; font-size:10px;">Reviewed: @Model.DesignReviewDoneDate.ToShortDateString()</td>
+                                                                    }
+                                                                    <td width="40%">Design Status:</td>
+                                                                    <td width="30%">@Model.DesignStatusString</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    @if (Model.ReviewDate.Year.Equals(1753))
+                                                                    {
+                                                                        <td width="30%" style="vertical-align:top; font-size:10px;">&nbsp;</td>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <td width="30%" style="vertical-align:top; font-size:10px;">@Model.DesignReviewerName</td>
+                                                                    }
+                                                                    <td width="40%">For Renovation:</td>
+                                                                    <td width="30%">@Model.ForMajorRenovation</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    @if (Model.DesignHeadVerifiedDate.Year.Equals(1753))
+                                                                    {
+                                                                        <td width="30%" style="vertical-align:bottom; font-size:10px;">Verified:</td>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <td width="30%" style="vertical-align:bottom; font-size:10px;">Verified: @Model.DesignHeadVerifiedDate.ToShortDateString()<br />@Model.DesignVerifierName</td>
+                                                                    }
+                                                                    <td width="40%">Design Remarks:</td>
+                                                                    <td width="30%">@Model.DesignRemarks</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>&nbsp;</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Operation Team</strong></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <table style="margin:0; border-collapse:unset; width:100%;">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td width="30%">Date Approved</td>
+                                                                    @if (Model.OperationsHeadVerifiedDate.Year.Equals(1753))
+                                                                    {
+                                                                        <td width="40%">&nbsp;</td>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <td width="40%">@Model.OperationsHeadVerifiedDate.ToShortDateString()</td>
+                                                                    }
+                                                                    <td width="30%">&nbsp;</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td width="30%">&nbsp;</td>
+                                                                    <td width="40%">Operation Status:</td>
+                                                                    <td width="30%">@Model.OperationStatusString</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    @if (Model.OperationFacilitiesReviewDoneDate.Year.Equals(1753))
+                                                                    {
+                                                                        <td width="30%" style="vertical-align:top; font-size:10px;">Reviewed:</td>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <td width="30%" style="vertical-align:top; font-size:10px;">Reviewed: @Model.OperationFacilitiesReviewDoneDate.ToShortDateString()<br />@Model.OperationFacilitiesReviewerName</td>
+                                                                    }
+                                                                    <td width="40%">Operation Facilities Remarks:</td>
+                                                                    <td width="30%">@Model.OperationFacilitiesRemarks</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    @if (Model.OperationsTenancyReviewDoneDate.Year.Equals(1753))
+                                                                    {
+                                                                        <td width="30%" style="vertical-align:top; font-size:10px;">Reviewed:</td>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <td width="30%" style="vertical-align:top; font-size:10px;">Reviewed: @Model.OperationsTenancyReviewDoneDate.ToShortDateString()<br />@Model.OperationTenancyReviewerName</td>
+                                                                    }
+                                                                    <td width="40%">Operation Tenancy Remarks:</td>
+                                                                    <td width="30%">@Model.OperationTenancyRemarks</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    @if (Model.OperationHouseKeepingReviewDoneDate.Year.Equals(1753))
+                                                                    {
+                                                                        <td width="30%" style="vertical-align:top; font-size:10px;">Reviewed:</td>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <td width="30%" style="vertical-align:top; font-size:10px;">Reviewed: @Model.OperationHouseKeepingReviewDoneDate.ToShortDateString()<br />@Model.OperationHouseKeepingReviewerName</td>
+                                                                    }
+                                                                    <td width="40%">Operation House Keeping Remarks:</td>
+                                                                    <td width="30%">@Model.OperationHouseKeepingRemarks</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    @if (Model.OperationSecurityReviewDoneDate.Year.Equals(1753))
+                                                                    {
+                                                                        <td width="30%" style="vertical-align:top; font-size:10px;">Reviewed:</td>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <td width="30%" style="vertical-align:top; font-size:10px;">Reviewed: @Model.OperationSecurityReviewDoneDate.ToShortDateString()<br />@Model.OperationSecurityReviewerName</td>
+                                                                    }
+                                                                    <td width="40%">Operation Security Remarks:</td>
+                                                                    <td width="30%">@Model.OperationSecurityRemarks</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    @if (Model.OperationsHeadVerifiedDate.Year.Equals(1753))
+                                                                    {
+                                                                        <td width="30%" style="vertical-align:top; font-size:10px;">Verified:</td>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <td width="30%" style="vertical-align:top; font-size:10px;">Verified: @Model.OperationsHeadVerifiedDate.ToShortDateString()<br />@Model.OperationVerifierName</td>
+                                                                    }
+                                                                    <td width="40%">&nbsp;</td>
+                                                                    <td width="30%">&nbsp;</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>&nbsp;</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Information Technology Team</strong></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <table style="margin:0; border-collapse:unset; width:100%;">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td width="30%">Date Approved</td>
+                                                                    @if (Model.ITHeadVerifiedDate.Year.Equals(1753))
+                                                                    {
+                                                                        <td width="40%">&nbsp;</td>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <td width="40%">@Model.ITHeadVerifiedDate.ToShortDateString()</td>
+                                                                    }
+                                                                    <td width="30%">&nbsp;</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    @if (Model.ITReviewDoneDate.Year.Equals(1753))
+                                                                    {
+                                                                        <td width="30%" style="vertical-align:bottom; font-size:10px;">Reviewed:</td>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <td width="30%" style="vertical-align:bottom; font-size:10px;">Reviewed: @Model.ITReviewDoneDate.ToShortDateString()</td>
+                                                                    }
+                                                                    <td width="40%">IT Status:</td>
+                                                                    <td width="30%">@Model.ITStatusString</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    @if (Model.ITReviewDoneDate.Year.Equals(1753))
+                                                                    {
+                                                                        <td width="30%" style="vertical-align:top; font-size:10px;">&nbsp;</td>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <td width="30%" style="vertical-align:top; font-size:10px;">@Model.ITReviewerName</td>
+                                                                    }
+                                                                    <td width="40%">POS System Agreement:</td>
+                                                                    <td width="30%">@Model.POSSystemAgreement</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    @if (Model.ITHeadVerifiedDate.Year.Equals(1753))
+                                                                    {
+                                                                        <td width="30%" style="vertical-align:bottom; font-size:10px;">Verified:</td>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <td width="30%" style="vertical-align:bottom; font-size:10px;">Verified: @Model.ITHeadVerifiedDate.ToShortDateString()</td>
+                                                                    }
+                                                                    <td width="40%">Daily Sales Reporting:</td>
+                                                                    <td width="30%">@Model.DailySalesReporting</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    @if (Model.ITHeadVerifiedDate.Year.Equals(1753))
+                                                                    {
+                                                                        <td width="30%" style="vertical-align:top; font-size:10px;">&nbsp;</td>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <td width="30%" style="vertical-align:top; font-size:10px;">@Model.ITVerifierName</td>
+                                                                    }
+                                                                    <td width="40%">IT Remarks:</td>
+                                                                    <td width="30%">@Model.ITRemarks</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>&nbsp;</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Finance Team</strong></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <table style="margin:0; border-collapse:unset; width:100%;">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td width="30%">Date Approved:</td>
+                                                                    <td width="40%">1/21/2020</td>
+                                                                    <td width="30%">&nbsp;</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    @if (Model.FinanceReviewDoneDate.Year.Equals(1753))
+                                                                    {
+                                                                        <td width="30%" style="vertical-align:bottom; font-size:10px;">Reviewed:</td>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <td width="30%" style="vertical-align:bottom; font-size:10px;">Reviewed: @Model.FinanceReviewDoneDate.ToShortDateString()</td>
+                                                                    }
+                                                                    <td width="40%">Finance Status:</td>
+                                                                    <td width="30%">@Model.FinanceStatusString</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    @if (Model.FinanceReviewDoneDate.Year.Equals(1753))
+                                                                    {
+                                                                        <td width="30%" style="vertical-align:top; font-size:10px;">&nbsp;</td>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <td width="30%" style="vertical-align:top; font-size:10px;">@Model.FinanceReviewerName</td>
+                                                                    }
+                                                                    <td width="40%">Unpaid Charges:</td>
+                                                                    <td width="30%">@Model.UnpaidCharges.ToString()</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    @if (Model.FinanceVerifiedDoneDate.Year.Equals(1753))
+                                                                    {
+                                                                        <td width="30%" style="vertical-align:bottom; font-size:10px;">Verified:</td>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <td width="30%" style="vertical-align:bottom; font-size:10px;">Verified: @Model.FinanceVerifiedDoneDate.ToShortDateString()</td>
+                                                                    }
+                                                                    <td width="40%">Advance Rent Paid:</td>
+                                                                    <td width="30%">@Model.AdvanceRentPaid.ToString()</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    @if (Model.FinanceReviewDoneDate.Year.Equals(1753))
+                                                                    {
+                                                                        <td width="30%" style="vertical-align:top; font-size:10px;">&nbsp;</td>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <td width="30%" style="vertical-align:top; font-size:10px;">@Model.FinanceVerifierName</td>
+                                                                    }
+                                                                    <td width="40%">Security Deposit:</td>
+                                                                    <td width="30%">@Model.SecurityDepositPaid.ToString()</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>&nbsp;</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Audit Team</strong></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <table style="margin:0; border-collapse:unset; width:100%;">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td width="30%">Date Approved:</td>
+                                                                    @if (Model.AuditHeadVerifiedDate.Year.Equals(1753))
+                                                                    {
+                                                                        <td width="40%">&nbsp;</td>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <td width="40%">@Model.AuditHeadVerifiedDate.ToShortDateString()</td>
+                                                                    }
+                                                                    <td width="30%">&nbsp;</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    @if (Model.AuditReviewDoneDate.Year.Equals(1753))
+                                                                    {
+                                                                        <td width="30%" style="vertical-align:bottom; font-size:10px;">Reviewer:</td>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <td width="30%" style="vertical-align:bottom; font-size:10px;">Reviewer: @Model.AuditReviewDoneDate.ToShortDateString()</td>
+                                                                    }
+                                                                    <td width="40%">Audit Status:</td>
+                                                                    <td width="30%">@Model.AuditStatusString</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    @if (Model.AuditReviewDoneDate.Year.Equals(1753))
+                                                                    {
+                                                                        <td width="30%" style="vertical-align:top; font-size:10px;">&nbsp;</td>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <td width="30%" style="vertical-align:top; font-size:10px;">@Model.AuditReviewerName</td>
+                                                                    }
+                                                                    <td width="40%">Audit Requirements:</td>
+                                                                    <td width="30%">CMSR Submissions</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    @if (Model.AuditHeadVerifiedDate.Year.Equals(1753))
+                                                                    {
+                                                                        <td width="30%" style="vertical-align:bottom; font-size:10px;">Verified:</td>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <td width="30%" style="vertical-align:bottom; font-size:10px;">Verified: @Model.AuditHeadVerifiedDate.ToShortDateString()</td>
+                                                                    }
+                                                                    <td width="40%">Audit Remarks:</td>
+                                                                    <td width="30%">@Model.AuditRemarks</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    @if (Model.AuditHeadVerifiedDate.Year.Equals(1753))
+                                                                    {
+                                                                        <td width="30%" style="vertical-align:top; font-size:10px;">&nbsp;</td>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <td width="30%" style="vertical-align:top; font-size:10px;">@Model.AuditVerifierName</td>
+                                                                    }
+                                                                    <td width="40%">&nbsp;</td>
+                                                                    <td width="30%">&nbsp;</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>&nbsp;</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>VP/GM Team</strong></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <table style="margin:0; border-collapse:unset; width:100%;">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td width="30%">Date Approved:</td>
+                                                                    @if (Model.VPGMHeadVerifiedDate.Year.Equals(1753))
+                                                                    {
+                                                                        <td width="40%">&nbsp;</td>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <td width="40%">@Model.VPGMHeadVerifiedDate.ToShortDateString()</td>
+                                                                    }
+                                                                    <td width="30%">&nbsp;</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    @if (Model.VPGMHeadVerifiedDate.Year.Equals(1753))
+                                                                    {
+                                                                        <td width="30%" style="vertical-align:bottom; font-size:10px;">Verified:</td>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <td width="30%" style="vertical-align:bottom; font-size:10px;">Verified: @Model.VPGMHeadVerifiedDate.ToShortDateString()</td>
+                                                                    }
+                                                                    <td width="40%">VP/GM Status:</td>
+                                                                    <td width="30%">@Model.VPGMStatusString</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    @if (Model.VPGMHeadVerifiedDate.Year.Equals(1753))
+                                                                    {
+                                                                        <td width="30%" style="vertical-align:top; font-size:10px;">&nbsp;</td>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <td width="30%" style="vertical-align:top; font-size:10px;">@Model.VPGMVerifierName</td>
+                                                                    }
+                                                                    <td width="40%">VP/GM Remarks:</td>
+                                                                    <td width="30%">@Model.VPGMRemarks</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>&nbsp;</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="fixed-action-btn">
+                <button class="btn-floating btn-large" type="submit" name="download">
+                    <i class="material-icons right">file_download</i>
+                </button>
+            </div>
+        </div>
+    </main>
+}

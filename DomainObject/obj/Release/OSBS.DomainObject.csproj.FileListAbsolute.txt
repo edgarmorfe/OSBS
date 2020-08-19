@@ -1,0 +1,6 @@
+C:\Users\edgarm\source\repos\OSBS\DomainObject\bin\Release\DomainObject.dll
+C:\Users\edgarm\source\repos\OSBS\DomainObject\bin\Release\DomainObject.pdb
+C:\Users\edgarm\source\repos\OSBS\DomainObject\obj\Release\OSBS.DomainObject.csproj.CoreCompileInputs.cache
+C:\Users\edgarm\source\repos\OSBS\DomainObject\obj\Release\DomainObject.dll
+C:\Users\edgarm\source\repos\OSBS\DomainObject\obj\Release\DomainObject.pdb
+C:\Users\edgarm\source\repos\OSBS\DomainObject\obj\Release\OSBS.DomainObject.csprojAssemblyReference.cache

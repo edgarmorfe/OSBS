@@ -1,0 +1,84 @@
+﻿@model WebUI.Models.ShuttleAddModel
+
+@{
+    ViewBag.Title = "Update";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <main>
+        <div class="container">
+            <div class="row">
+                <div class="col s12">
+                    <div class="card">
+                        <div class="card-content">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="input-field col s6">
+                                @Html.TextBoxFor(model => model.PlateNo, new { @class = "validate", @required = "" })
+                                @Html.LabelFor(model => model.PlateNo)
+                            </div>
+
+                            <div class="input-field col s6">
+                                @Html.TextBoxFor(model => model.SeatCount, new { @class = "validate", @required = "" })
+                                @Html.LabelFor(model => model.SeatCount)
+                            </div>
+
+                            <div class="input-field col s6" style="margin-top: 30px">
+                                <div class="col s2">
+                                    <label>
+                                        @Html.RadioButtonFor(model => model.Coding, "2", new { @class = "with-gap" })
+                                        <span>M</span>
+                                    </label>
+                                </div>
+                                <div class="col s2">
+                                    <label>
+                                        @Html.RadioButtonFor(model => model.Coding, "3", new { @class = "with-gap" })
+                                        <span>T</span>
+                                    </label>
+                                </div>
+                                <div class="col s2">
+                                    <label>
+                                        @Html.RadioButtonFor(model => model.Coding, "4", new { @class = "with-gap" })
+                                        <span>W</span>
+                                    </label>
+                                </div>
+                                <div class="col s3">
+                                    <label>
+                                        @Html.RadioButtonFor(model => model.Coding, "5", new { @class = "with-gap" })
+                                        <span>TTH</span>
+                                    </label>
+                                </div>
+                                <div class="col s2">
+                                    <label>
+                                        @Html.RadioButtonFor(model => model.Coding, "6", new { @class = "with-gap" })
+                                        <span>F</span>
+                                    </label>
+                                </div>
+                                <div class="col s3">
+                                </div>
+                                @Html.LabelFor(model => model.Coding, new { @class = "active" })
+                            </div>
+
+                            <div class="input-field col s6">
+                                @Html.DropDownListFor(model => model.SelectedStatusId, new SelectList(Model.Statuses, "Id", "Name"), new { @class = "validate", @required = "" })
+                                @Html.LabelFor(model => model.Status)
+                            </div>
+
+                            <div class="right-align">
+                                <button class="btn waves-effect waves-light" type="submit" name="">
+                                    Update
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

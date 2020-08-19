@@ -1,0 +1,99 @@
+﻿@model WebUI.Models.OTReservationViewModel
+
+@{
+    ViewBag.Title = "Approval";
+}
+
+@using (Html.BeginForm())
+{
+    <main>
+        <div class="container">
+            <div class="row">
+                <div class="col s12 m4">
+                    <div class="card">
+                        <div class="card-content">
+                            @if (Model.Passengers.Count().Equals(0))
+                            {
+                                <span class="card-title">No Approval Trip</span>
+                            }
+                            else
+                            {
+                                <span class="card-title">Approval Count (@Model.Passengers.Count())</span>
+                                <ul>
+                                    <li class="collection-item">
+                                        <div class="">
+                                            @Html.ActionLink(
+                                                        "Approve All",
+                                                        "ApprovalAll", //controller action
+                                                        "Reservation", //controller
+                                                        new { },
+                                                        new { @class = "btn waves-effect waves-light" })
+                                        </div>
+                                    </li>
+                                </ul>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 m8">
+                    @foreach (var pass in Model.Passengers)
+                    {
+                        <ul class="card collection">
+
+                            <li class="collection-item avatar">
+                                <div>
+                                    <img src="@pass.ProfilePicPath" class="circle" />
+                                </div>
+                                <span class="title">@pass.FullName</span>
+                                <p>
+                                    @pass.PickUp - @pass.DropOff
+                                    <br />
+                                    @pass.SchedDate
+                                </p>
+                                <br />
+                                @if (pass.Status.ToLower().Equals("forapproval") || pass.Status.ToLower().Equals("declined"))
+                                {
+                                    <div class="right-align">
+                                        @Html.ActionLink(
+                                                         "Approve",
+                                                         "Approve", //controller action
+                                                         "Reservation", //controller
+                                                         new { pass.Id }, // action parameters aka route values
+                                                         new { @class = "btn waves-effect waves-light" })
+                                        <a class="waves-effect waves-light btn modal-trigger" href="#commentModal" name="@pass.Id">Decline</a>
+                                    </div>
+                                }
+
+                            </li>
+                        </ul>
+                    }
+
+                    <!-- Modal Structure -->
+                    <div id="commentModal" class="modal">
+                        <div class="modal-content">
+                            <div class="input-field col s10">
+                                <input type="text" id="txtid" name="id" value="" style="display: none;" />
+                                <input type="text" name="message" required />
+                            </div>
+                            <div class="input-field col s2">
+                                <button class="btn waves-effect waves-light" type="submit">
+                                    Save
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+}
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('a[href="#commentModal"]').click(function () {
+                $('#txtid').val($(this).attr('name'));
+            }); 
+        });
+    </script>
+}

@@ -1,0 +1,65 @@
+﻿@model  WebUI.Models.RouteFareViewModel
+
+@{
+    ViewBag.Title = "Manage Route Token";
+}
+@using (Html.BeginForm())
+{
+    <main>
+        <div class="container">
+            <div class="row">
+                <div class="col s12">
+                    @for (int groupFare = 0; groupFare < Model.TimeSeperatedRouteFareModel.Count(); groupFare++)
+                    {
+                        <div class="col s12 m6">
+                            <div class="card">
+                                <div class="card-content">
+                                    <table class="row-border" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th style="width:75%">
+                                                    @Html.DisplayFor(model => model.TimeSeperatedRouteFareModel[groupFare].Time)
+                                                </th>
+                                                <th>
+                                                    @Html.DisplayNameFor(model => model.TimeSeperatedRouteFareModel[groupFare].RouteFareModels[0].Amount)
+                                                </th>
+                                            </tr>
+                                            @for (int count = 0; count < @Model.TimeSeperatedRouteFareModel[groupFare].RouteFareModels.Count; count++)
+                                            {
+                                                <tr>
+                                                    <td>
+
+                                                        @Html.HiddenFor(Model => Model.TimeSeperatedRouteFareModel[groupFare].RouteFareModels[count].Id)
+                                                        @Html.DisplayFor(Model => Model.TimeSeperatedRouteFareModel[groupFare].RouteFareModels[count].Route)
+
+                                                    </td>
+                                                    <td>
+
+                                                        @Html.EditorFor(Model => Model.TimeSeperatedRouteFareModel[groupFare].RouteFareModels[count].Amount)
+
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </thead>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <div class="right-align">
+                        <button type="submit" class="btn waves-effect waves-light">
+                            Update
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+}
+
+
+@section Scripts {
+    <script src="~/Scripts/Materialize/page-scripts/DataTables.js"></script>
+}

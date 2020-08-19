@@ -1,0 +1,11 @@
+C:\Users\edgarm\source\repos\OSBS\DL\bin\Release\DL.dll
+C:\Users\edgarm\source\repos\OSBS\DL\bin\Release\DL.pdb
+C:\Users\edgarm\source\repos\OSBS\DL\bin\Release\Dapper.dll
+C:\Users\edgarm\source\repos\OSBS\DL\bin\Release\DomainObject.dll
+C:\Users\edgarm\source\repos\OSBS\DL\bin\Release\DomainObject.pdb
+C:\Users\edgarm\source\repos\OSBS\DL\bin\Release\Dapper.xml
+C:\Users\edgarm\source\repos\OSBS\DL\obj\Release\OSBS.DL.csprojAssemblyReference.cache
+C:\Users\edgarm\source\repos\OSBS\DL\obj\Release\OSBS.DL.csproj.CoreCompileInputs.cache
+C:\Users\edgarm\source\repos\OSBS\DL\obj\Release\OSBS.DL.csproj.CopyComplete
+C:\Users\edgarm\source\repos\OSBS\DL\obj\Release\DL.dll
+C:\Users\edgarm\source\repos\OSBS\DL\obj\Release\DL.pdb

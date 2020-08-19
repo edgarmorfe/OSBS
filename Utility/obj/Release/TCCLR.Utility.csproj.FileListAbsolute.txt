@@ -1,0 +1,6 @@
+C:\Users\edgarm\source\repos\OSBS - Copy (4)\Utility\bin\Release\Utility.dll
+C:\Users\edgarm\source\repos\OSBS - Copy (4)\Utility\bin\Release\Utility.pdb
+C:\Users\edgarm\source\repos\OSBS - Copy (4)\Utility\obj\Release\TCCLR.Utility.csprojAssemblyReference.cache
+C:\Users\edgarm\source\repos\OSBS - Copy (4)\Utility\obj\Release\TCCLR.Utility.csproj.CoreCompileInputs.cache
+C:\Users\edgarm\source\repos\OSBS - Copy (4)\Utility\obj\Release\Utility.dll
+C:\Users\edgarm\source\repos\OSBS - Copy (4)\Utility\obj\Release\Utility.pdb

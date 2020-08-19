@@ -1,0 +1,127 @@
+﻿@model WebUI.Models.OTReservationNewModel
+
+@{
+    /**/
+
+    ViewBag.Title = "Edit Booking";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <nav class="navbar nav-extended no-padding">
+
+        <div class="nav-content">
+            <div class="nav-metrics row">
+                <div class="col s4 no-padding">
+                    <div class="card horizontal">
+                        <div class="card-stacked">
+                            <div class="card-metrics card-metrics-static">
+                                <div class="card-metric active">
+                                    <div class="card-metric-title">Pending</div>
+                                    <div class="card-metric-value">0/0</div>
+                                    <div class="card-metric-change increase">12%<i class="material-icons left">keyboard_arrow_up</i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <canvas id="mini-line-chart" width="100" height="100"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s4 no-padding">
+                    <div class="card horizontal">
+                        <div class="card-stacked">
+                            <div class="card-metrics card-metrics-static">
+                                <div class="card-metric active">
+                                    <div class="card-metric-title">On-going</div>
+                                    <div class="card-metric-value">1/1</div>
+                                    <div class="card-metric-change decrease">12%<i class="material-icons left">keyboard_arrow_up</i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <canvas id="mini-stacked-bar-chart" width="100" height="100"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s4 no-padding">
+                    <div class="card horizontal">
+                        <div class="card-stacked">
+                            <div class="card-metrics card-metrics-static">
+                                <div class="card-metric active">
+                                    <div class="card-metric-title">History</div>
+                                    <div class="card-metric-value">29</div>
+                                    <div class="card-metric-change">100%<i class="material-icons left">keyboard_arrow_up</i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <canvas id="mini-doughnut-chart" width="100" height="100"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="row">
+                <div class="col s12">
+                    <div class="card">
+                        <div class="card-content">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="input-field col s6">
+                                @Html.TextBoxFor(model => model.ReservationDate, "{0:MM-dd-yyyy}", new { @class = "datepicker validate", @required = "You must provide a reservation date" })
+                                @Html.LabelFor(model => model.ReservationDate)
+                                @Html.ValidationMessageFor(model => model.ReservationDate, "")
+                            </div>
+
+                            <div class="input-field col s6">
+                                @Html.DropDownListFor(model => model.TimeSlotSelectedId, new SelectList(Model.TimeSlots, "Id", "Name"))
+                                @Html.LabelFor(model => model.TimeSlots)
+                                @Html.ValidationMessageFor(model => model.TimeSlotSelectedId, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="input-field col s6">
+                                @Html.DropDownListFor(model => model.PickUpSelectedId, new SelectList(Model.PickUps, "Id", "Name"))
+                                @Html.LabelFor(model => model.PickUps)
+                                @Html.ValidationMessageFor(model => model.PickUpSelectedId, "")
+                            </div>
+
+                            <div class="input-field col s6">
+                                @Html.DropDownListFor(model => model.DropOffSelectedId, new SelectList(Model.DropOffs, "Id", "Name"), new { @class = "form-control" })
+                                @Html.LabelFor(model => model.DropOffs)
+                                @Html.ValidationMessageFor(model => model.DropOffSelectedId, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="input-field col s12">
+                                @Html.TextBoxFor(model => model.Comment, new { @class = "materialize-textarea" })
+                                @Html.LabelFor(model => model.Comment)
+                                @Html.ValidationMessageFor(model => model.Comment, "")
+                            </div>
+                            <div class="right-align">
+                                <button class="btn waves-effect waves-light" type="submit" name="action:Cancel">Cancel</button>
+                                <button class="btn waves-effect waves-light" type="submit" name="action:Edit">
+                                    Update
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+}
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.datepicker').datepicker({
+                format: 'mm-dd-yyyy',
+                minDate: new Date(),
+                yearRange: 1
+            });
+        });
+    </script>
+}

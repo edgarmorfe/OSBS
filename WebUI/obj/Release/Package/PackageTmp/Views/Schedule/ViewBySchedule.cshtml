@@ -1,0 +1,94 @@
+﻿@model WebUI.Models.ScheduleModel
+
+@{
+    ViewBag.Title = "View Shuttles";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <main>
+        <div class="container">
+            <div class="row">
+                <div class="col s12 m4">
+                    <div class="settings-group">
+                        <ul class="collapsible setting">
+                            @foreach (var sched in Model.Schedules)
+                            {
+                                <li>
+                                    <div class="collapsible-header">
+                                        <span>@sched.Time</span>
+                                        <i class="material-icons caret right">keyboard_arrow_right</i>
+                                    </div>
+
+                                    <div class="collapsible-body">
+                                        @{Html.RenderPartial("_scheduleDashboard", sched);
+                                        }
+                                    </div>
+                                </li>
+                            }
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="col s12 m8">
+                    <div class="card">
+                        <table id="table-custom-elements" class="row-border" cellspacing="0" width="100">
+                            <thead>
+                                <tr>
+                                    <th>Shuttle</th>
+                                    <th>Driver</th>
+                                    <th>Status</th>
+                                    <th>Edit</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+}
+
+@section Scripts {
+    <script>
+        $('.tooltipped').tooltip();
+
+        $(document).ready(function () {
+            var data = [@Html.Raw(@TempData["reseveList"])];
+            var tableCustomElements = $('#table-custom-elements');
+            if (tableCustomElements.length) {
+                var table = tableCustomElements.DataTable({
+                    'data': data,
+                    'columnDefs': [{
+                    'targets': 0,
+                    'searchable': false,
+                    'orderable': false
+                }],
+                'language': {
+                    'search': '',
+                    'searchPlaceholder': 'Enter search term'
+                },
+                'order': [0, 'asc'],
+                'dom': 'ft<"footer-wrapper"l<"paging-info"ip>>',
+                'scrollY': '400px',
+                'scrollCollapse': true,
+                'pagingType': 'full',
+                'drawCallback': function (settings) {
+                    var api = this.api();
+
+                    // Add waves to pagination buttons
+                    $(api.table().container()).find('.paginate_button').addClass('waves-effect');
+
+                    api.table().columns.adjust();
+                }
+            });
+        }
+    });
+    </script>
+    <script src="~/Scripts/Materialize/page-scripts/DataTables.js"></script>
+}
+

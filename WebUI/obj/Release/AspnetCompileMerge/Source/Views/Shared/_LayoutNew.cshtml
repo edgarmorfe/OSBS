@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+
+    <div class="wrapper">
+        <!-- Sidebar Holder -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h3>OSBS</h3>
+            </div>
+            <ul class="list-unstyled components">
+                <p>Welcome</p>
+                <li class="active">
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">Reservation</a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu">
+                        <li>@Html.ActionLink("Business", "Book", "Reservation")</li>
+                        <li>@Html.ActionLink("Over Time Book", "Book", "Reservation")</li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">Shuttle</a>
+                    <ul class="collapse list-unstyled" id="pageSubmenu">
+                        <li>@Html.ActionLink("Add", "Add", "Shuttle")</li>
+                        <li>@Html.ActionLink("View", "ViewAll", "Shuttle")</li>
+                        <li>@Html.ActionLink("Update", "ViewAll", "Shuttle")</li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#DriverSubmenu" data-toggle="collapse" aria-expanded="false">Driver</a>
+                    <ul class="collapse list-unstyled" id="DriverSubmenu">
+                        <li>@Html.ActionLink("Add", "Add", "Driver")</li>
+                        <li>@Html.ActionLink("View", "ViewAll", "Driver")</li>
+                        <li>@Html.ActionLink("Update", "ViewAll", "Driver")</li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Contact</a>
+                </li>
+            </ul>
+            <ul class="list-unstyled CTAs">
+                <li><a href="#" class="download">Rockwell</a></li>
+                <li><a href="#" class="article">Back to article</a></li>
+            </ul>
+        </nav>
+
+        <div class="container body-content">
+            <div id="content">
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn">
+                                <i class="glyphicon glyphicon-align-left"></i>
+                            </button>
+                        </div>
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a href="#">Log Out</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+
+            </div>
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - Online Shuttle Booking System (OSBS)</p>
+            </footer>
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+            });
+        });</script>
+</body>
+</html>
+
+

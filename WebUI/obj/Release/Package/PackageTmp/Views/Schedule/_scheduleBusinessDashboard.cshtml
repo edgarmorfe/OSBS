@@ -1,0 +1,64 @@
+﻿
+@model WebUI.Models.ScheduleModel
+
+<div class="col s12 m4">
+    <ul class="collapsible">
+        @foreach (var sched in Model.Schedules.Where(s => s.Time.ToLower().Equals("business")))
+        {
+            <li class="active">
+                <div class="collapsible-header">
+                    @if (sched.Color == "red")
+                    {
+                        <i class="material-icons medium red-text">access_time</i>
+                    }
+                    else
+                    {
+                        <i class="material-icons medium">access_time</i>
+                    }
+                    <span>@sched.Time</span>
+                </div>
+                <div class="collapsible-body">
+                    <div class="row">
+                        <ul class="badge-updates">
+                            <li>
+
+                                <div class="col s12">
+                                    <div class="col s4">
+                                        <span class="new badge" data-badge-caption=""><i class="material-icons">place</i></span>
+                                    </div>
+                                    <div class="col s4">
+                                        <span class="subtitle new badge" data-badge-caption=""><i class="material-icons">drive_eta</i></span>
+                                    </div>
+                                    <div class="col s4">
+                                        <span class="subtitle new badge" data-badge-caption=""><i class="material-icons">people_outline</i></span>
+                                    </div>
+                                </div>
+
+                            </li>
+                            @foreach (var chld in sched.Child)
+                            {
+                                <li>
+                                    <div class="col s12">
+                                        <div class="col s4">
+                                            <a href=@Url.Action("Add", "Schedule", new { selectedTime = chld.SchedTime, pickUpId = chld.PickUpId, dropOff = chld.DropOff, resId = chld.Id, resType = chld.ResType })>
+                                                <span class="new badge @chld.Color" data-badge-caption="@chld.RouteName"></span>
+                                            </a>
+                                        </div>
+                                        <div class="col s4">
+                                            <span class="subtitle new badge @chld.Color" data-badge-caption="@chld.ShuttleAssigned"></span>
+                                        </div>
+                                        <div class="col s4">
+                                            <a href=@Url.Action("ViewPassengers", "Schedule",  new {schedTrip = chld.SchedTime, pickUpId = chld.PickUpId, dropOffId = chld.DropOffId, resType = chld.ResType})>
+                                                <span class="subtitle new badge @chld.Color" data-badge-caption="@chld.OccupiedSeat/@chld.TotalSeat"></span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </li>
+        }
+    </ul>
+</div>

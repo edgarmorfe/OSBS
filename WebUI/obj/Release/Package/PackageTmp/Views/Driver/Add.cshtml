@@ -1,0 +1,107 @@
+﻿@model WebUI.Models.DriverModel
+
+@{
+    ViewBag.Title = "Add Driver";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <main>
+        <div class="container">
+            <div class="row">
+                <div class="col s12">
+                    <div class="card">
+                        <div class="card-content">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="input-field col s6">
+                                @Html.TextBoxFor(model => model.UserName, new { @class = "validate", @required = "" })
+                                @Html.LabelFor(model => model.UserName)
+                                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="input-field col s6">
+                                @Html.TextBoxFor(model => model.LastName, new { @class = "validate", @required = "" })
+                                @Html.LabelFor(model => model.LastName)
+                                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="input-field col s6">
+                                @Html.TextBoxFor(model => model.MiddleName, new { @class = "validate", @required = "" })
+                                @Html.LabelFor(model => model.MiddleName)
+                                @Html.ValidationMessageFor(model => model.MiddleName, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="input-field col s6">
+                                @Html.TextBoxFor(model => model.FirstName, new { @class = "validate", @required = "" })
+                                @Html.LabelFor(model => model.FirstName)
+                                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="input-field col s6">
+                                @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "validate", @required = "" })
+                                @Html.LabelFor(model => model.PhoneNumber)
+                                @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="input-field col s6">
+                                @Html.TextBoxFor(model => model.DateOfBirth, "{0:MM-dd-yyyy}", new { @class = "datepicker validate", @required = "" })
+                                @Html.LabelFor(model => model.DateOfBirth)
+                                @Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="input-field col s6">
+                                @Html.TextBoxFor(model => model.Address, new { @class = "validate", @required = "" })
+                                @Html.LabelFor(model => model.Address)
+                                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="input-field col s6">
+                                @Html.TextBoxFor(model => model.LicenseExpiry, "{0:MM-dd-yyyy}", new { @class = "datepicker validate", @required = "" })
+                                @Html.LabelFor(model => model.LicenseExpiry)
+                                @Html.ValidationMessageFor(model => model.LicenseExpiry)
+                            </div>
+
+                            <div class="input-field col s6">
+                                @Html.LabelFor(model => model.Status)
+                            </div>
+                            <div class="input-field col s6">
+                                <div class="switch">
+                                    <label>
+                                        Off
+                                        <input id="switch" type="checkbox">
+                                        <span class="lever"></span>
+                                        On
+                                    </label>
+                                    @Html.HiddenFor(model => model.Status)
+                                </div>
+                            </div>
+                            <div class="right-align">
+                                <button class="btn waves-effect waves-light" type="submit" name="book">
+                                    Add
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+}
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.datepicker').datepicker({
+                format: 'mm-dd-yyyy',
+                yearRange: 10
+            });
+            $('#switch').change();
+        });
+
+        $('#switch').change(function () {
+            if (this.checked) {
+                $('#Status').val('true');
+            } else {
+                $('#Status').val('false');
+            }
+        });
+    </script>
+}

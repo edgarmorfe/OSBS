@@ -1,0 +1,2244 @@
+﻿@using WebUI.Attributes
+@model WebUI.Models.TenantRenewalView
+
+
+@{
+    /**/
+
+    ViewBag.Title = "Update";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <main>
+        <div class="container">
+            <div class="row">
+                <div class="col s9">
+                    <div class="card">
+                        <div class="card-content">
+                            <div id="introduction" class="input-field col s12 scrollspy">
+                                <p><strong>Introduction </strong></p>
+                            </div>
+                            @if (User.IsInRole("admin") || User.IsInRole("Leasing Head Approver") || User.IsInRole("Leasing Reviewer"))
+                            {
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.TenantId, new { @class = "validate", @required = "" })
+                                    @Html.LabelFor(model => model.TenantId)
+                                    @Html.ValidationMessageFor(model => model.TenantId, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.Expiry, "{0:MM-dd-yyyy}", new { @class = "datepicker validate", @required = "" })
+                                    @Html.LabelFor(model => model.Expiry)
+                                    @Html.ValidationMessageFor(model => model.Expiry, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.Name, new { @class = "validate", @required = "" })
+                                    @Html.LabelFor(model => model.Name)
+                                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.Area, new { @class = "validate", @required = "" })
+                                    @Html.LabelFor(model => model.Area)
+                                    @Html.ValidationMessageFor(model => model.Area, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s12">
+                                    @Html.LabelFor(model => model.LeasingStatus, new { @class = "customlabel" })
+                                    <div class="col s6"></div>
+                                    <div class="col s3">
+                                        <label>
+                                            @Html.RadioButtonFor(model => model.LeasingStatus, "1", new { @class = "with-gap" })
+                                            <span>For Renewal</span>
+                                        </label>
+                                    </div>
+                                    <div class="col s3">
+                                        <label>
+                                            @Html.RadioButtonFor(model => model.LeasingStatus, "0", new { @class = "with-gap" })
+                                            <span>Hold</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="input-field col s12" style="margin-top: 20px">
+                                    <div class="input-field col s6"></div>
+                                    <div class="col s6">
+                                        <label>
+                                            @Html.CheckBoxFor(model => model.ContractSignedNotarized, new { @type = "checkbox" })
+                                            <span>Contract Signed & Notarized</span>
+                                        </label>
+                                    </div>
+                                    <div class="col s6">
+                                        <label>
+                                            @Html.CheckBoxFor(model => model.BalancesPaid, new { @type = "checkbox" })
+                                            <span>Balances Paid</span>
+                                        </label>
+                                    </div>
+                                    <div class="input-field col s6"></div>
+                                    <div class="col s6">
+                                        <label>
+                                            @Html.CheckBoxFor(model => model.RenewalSigned, new { @type = "checkbox" })
+                                            <span>Renewal Signed (if applicable)</span>
+                                        </label>
+                                    </div>
+                                    <div class="col s6">
+                                        <label>
+                                            @Html.CheckBoxFor(model => model.Underperformer, new { @type = "checkbox" })
+                                            <span>Underperformer</span>
+                                        </label>
+                                    </div>
+                                    @Html.LabelFor(model => model.RenewalRequirements, new { @class = "customlabel" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.Category, new { @class = "validate", @required = "" })
+                                    @Html.LabelFor(model => model.Category)
+                                    @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.CategorySpecialist, new { @class = "validate", @required = "" })
+                                    @Html.LabelFor(model => model.CategorySpecialist)
+                                    @Html.ValidationMessageFor(model => model.CategorySpecialist, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.UnderperformerYears, new { @class = "validate", @required = "" })
+                                    @Html.LabelFor(model => model.UnderperformerYears)
+                                    @Html.ValidationMessageFor(model => model.UnderperformerYears, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.UnderperformerMonth, new { @class = "validate", @required = "" })
+                                    @Html.LabelFor(model => model.UnderperformerMonth)
+                                    @Html.ValidationMessageFor(model => model.UnderperformerMonth, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.CurrentRentBase, new { @class = "validate", @required = "" })
+                                    @Html.LabelFor(model => model.CurrentRentBase)
+                                    @Html.ValidationMessageFor(model => model.CurrentRentBase, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.CurrentMGR, new { @class = "validate", @required = "" })
+                                    @Html.LabelFor(model => model.CurrentMGR)
+                                    @Html.ValidationMessageFor(model => model.CurrentMGR, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.HistoricalPerformanceYear1, new { @class = "validate", @required = "" })
+                                    @Html.LabelFor(model => model.HistoricalPerformanceYear1)
+                                    @Html.ValidationMessageFor(model => model.HistoricalPerformanceYear1, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.AveSalesPerSQMYear1, new { @class = "validate", @required = "" })
+                                    @Html.LabelFor(model => model.AveSalesPerSQMYear1)
+                                    @Html.ValidationMessageFor(model => model.AveSalesPerSQMYear1, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.AveEffectiveRentYear1, new { @class = "validate", @required = "" })
+                                    @Html.LabelFor(model => model.AveEffectiveRentYear1)
+                                    @Html.ValidationMessageFor(model => model.AveEffectiveRentYear1, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.HistoricalPerformanceYear2, new { @class = "validate", @required = "" })
+                                    @Html.LabelFor(model => model.HistoricalPerformanceYear2)
+                                    @Html.ValidationMessageFor(model => model.HistoricalPerformanceYear2, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.AveSalesPerSQMYear2, new { @class = "validate", @required = "" })
+                                    @Html.LabelFor(model => model.AveSalesPerSQMYear2)
+                                    @Html.ValidationMessageFor(model => model.AveSalesPerSQMYear2, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.AveEffectiveRentYear2, new { @class = "validate", @required = "" })
+                                    @Html.LabelFor(model => model.AveEffectiveRentYear2)
+                                    @Html.ValidationMessageFor(model => model.AveEffectiveRentYear2, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.HistoricalPerformanceYear3, new { @class = "validate", @required = "" })
+                                    @Html.LabelFor(model => model.HistoricalPerformanceYear3)
+                                    @Html.ValidationMessageFor(model => model.HistoricalPerformanceYear3, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.AveSalesPerSQMYear3, new { @class = "validate", @required = "" })
+                                    @Html.LabelFor(model => model.AveSalesPerSQMYear3)
+                                    @Html.ValidationMessageFor(model => model.AveSalesPerSQMYear3, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.AveEffectiveRentYear3, new { @class = "validate", @required = "" })
+                                    @Html.LabelFor(model => model.AveEffectiveRentYear3)
+                                    @Html.ValidationMessageFor(model => model.AveEffectiveRentYear3, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.HistoricalPerformanceYear4, new { @class = "validate", @required = "" })
+                                    @Html.LabelFor(model => model.HistoricalPerformanceYear4)
+                                    @Html.ValidationMessageFor(model => model.HistoricalPerformanceYear4, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.AveSalesPerSQMYear4, new { @class = "validate", @required = "" })
+                                    @Html.LabelFor(model => model.AveSalesPerSQMYear4)
+                                    @Html.ValidationMessageFor(model => model.AveSalesPerSQMYear4, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.AveEffectiveRentYear4, new { @class = "validate", @required = "" })
+                                    @Html.LabelFor(model => model.AveEffectiveRentYear4)
+                                    @Html.ValidationMessageFor(model => model.AveEffectiveRentYear4, "", new { @class = "text-danger" })
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.TenantId, new { @class = "validate", @required = "", @readonly = "readonly" })
+                                    @Html.LabelFor(model => model.TenantId)
+                                    @Html.ValidationMessageFor(model => model.TenantId, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.Expiry, "{0:MM-dd-yyyy}", new { @class = "datepicker validate", @required = "", @readonly = "readonly" })
+                                    @Html.LabelFor(model => model.Expiry)
+                                    @Html.ValidationMessageFor(model => model.Expiry, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.Name, new { @class = "validate", @required = "", @readonly = "readonly" })
+                                    @Html.LabelFor(model => model.Name)
+                                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.Area, new { @class = "validate", @required = "", @readonly = "readonly" })
+                                    @Html.LabelFor(model => model.Area)
+                                    @Html.ValidationMessageFor(model => model.Area, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s12">
+                                    @Html.LabelFor(model => model.LeasingStatus, new { @class = "customlabel" })
+                                    <div class="col s6"></div>
+                                    <div class="col s3">
+                                        <label>
+                                            @Html.RadioButtonFor(model => model.LeasingStatus, "1", new { @class = "with-gap", @disabled = "disabled" })
+                                            <span>For Renewal</span>
+                                        </label>
+                                    </div>
+                                    <div class="col s3">
+                                        <label>
+                                            @Html.RadioButtonFor(model => model.LeasingStatus, "0", new { @class = "with-gap", @disabled = "disabled" })
+                                            <span>Hold</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="input-field col s12" style="margin-top: 20px">
+                                    <div class="input-field col s6"></div>
+                                    <div class="col s6">
+                                        <label>
+                                            @Html.CheckBoxFor(model => model.ContractSignedNotarized, new { @type = "checkbox", @disabled = "disabled" })
+                                            <span>Contract Signed & Notarized</span>
+                                        </label>
+                                    </div>
+                                    <div class="col s6">
+                                        <label>
+                                            @Html.CheckBoxFor(model => model.BalancesPaid, new { @type = "checkbox", @disabled = "disabled" })
+                                            <span>Balances Paid</span>
+                                        </label>
+                                    </div>
+                                    <div class="input-field col s6"></div>
+                                    <div class="col s6">
+                                        <label>
+                                            @Html.CheckBoxFor(model => model.RenewalSigned, new { @type = "checkbox", @disabled = "disabled" })
+                                            <span>Renewal Signed (if applicable)</span>
+                                        </label>
+                                    </div>
+                                    <div class="col s6">
+                                        <label>
+                                            @Html.CheckBoxFor(model => model.Underperformer, new { @type = "checkbox", @disabled = "disabled" })
+                                            <span>Underperformer</span>
+                                        </label>
+                                    </div>
+                                    @Html.LabelFor(model => model.RenewalRequirements, new { @class = "customlabel" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.Category, new { @class = "validate", @required = "", @readonly = "readonly" })
+                                    @Html.LabelFor(model => model.Category)
+                                    @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.CategorySpecialist, new { @class = "validate", @required = "", @readonly = "readonly" })
+                                    @Html.LabelFor(model => model.CategorySpecialist)
+                                    @Html.ValidationMessageFor(model => model.CategorySpecialist, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.UnderperformerYears, new { @class = "validate", @required = "", @readonly = "readonly" })
+                                    @Html.LabelFor(model => model.UnderperformerYears)
+                                    @Html.ValidationMessageFor(model => model.UnderperformerYears, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.UnderperformerMonth, new { @class = "validate", @required = "", @readonly = "readonly" })
+                                    @Html.LabelFor(model => model.UnderperformerMonth)
+                                    @Html.ValidationMessageFor(model => model.UnderperformerMonth, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.CurrentRentBase, new { @class = "validate", @required = "", @readonly = "readonly" })
+                                    @Html.LabelFor(model => model.CurrentRentBase)
+                                    @Html.ValidationMessageFor(model => model.CurrentRentBase, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.CurrentMGR, new { @class = "validate", @required = "", @readonly = "readonly" })
+                                    @Html.LabelFor(model => model.CurrentMGR)
+                                    @Html.ValidationMessageFor(model => model.CurrentMGR, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.HistoricalPerformanceYear1, new { @class = "validate", @required = "", @readonly = "readonly" })
+                                    @Html.LabelFor(model => model.HistoricalPerformanceYear1)
+                                    @Html.ValidationMessageFor(model => model.HistoricalPerformanceYear1, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.AveSalesPerSQMYear1, new { @class = "validate", @required = "", @readonly = "readonly" })
+                                    @Html.LabelFor(model => model.AveSalesPerSQMYear1)
+                                    @Html.ValidationMessageFor(model => model.AveSalesPerSQMYear1, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.AveEffectiveRentYear1, new { @class = "validate", @required = "", @readonly = "readonly" })
+                                    @Html.LabelFor(model => model.AveEffectiveRentYear1)
+                                    @Html.ValidationMessageFor(model => model.AveEffectiveRentYear1, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.HistoricalPerformanceYear2, new { @class = "validate", @required = "", @readonly = "readonly" })
+                                    @Html.LabelFor(model => model.HistoricalPerformanceYear2)
+                                    @Html.ValidationMessageFor(model => model.HistoricalPerformanceYear2, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.AveSalesPerSQMYear2, new { @class = "validate", @required = "", @readonly = "readonly" })
+                                    @Html.LabelFor(model => model.AveSalesPerSQMYear2)
+                                    @Html.ValidationMessageFor(model => model.AveSalesPerSQMYear2, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.AveEffectiveRentYear2, new { @class = "validate", @required = "", @readonly = "readonly" })
+                                    @Html.LabelFor(model => model.AveEffectiveRentYear2)
+                                    @Html.ValidationMessageFor(model => model.AveEffectiveRentYear2, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.HistoricalPerformanceYear3, new { @class = "validate", @required = "", @readonly = "readonly" })
+                                    @Html.LabelFor(model => model.HistoricalPerformanceYear3)
+                                    @Html.ValidationMessageFor(model => model.HistoricalPerformanceYear3, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.AveSalesPerSQMYear3, new { @class = "validate", @required = "", @readonly = "readonly" })
+                                    @Html.LabelFor(model => model.AveSalesPerSQMYear3)
+                                    @Html.ValidationMessageFor(model => model.AveSalesPerSQMYear3, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.AveEffectiveRentYear3, new { @class = "validate", @required = "", @readonly = "readonly" })
+                                    @Html.LabelFor(model => model.AveEffectiveRentYear3)
+                                    @Html.ValidationMessageFor(model => model.AveEffectiveRentYear3, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.HistoricalPerformanceYear4, new { @class = "validate", @required = "", @readonly = "readonly" })
+                                    @Html.LabelFor(model => model.HistoricalPerformanceYear4)
+                                    @Html.ValidationMessageFor(model => model.HistoricalPerformanceYear4, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.AveSalesPerSQMYear4, new { @class = "validate", @required = "", @readonly = "readonly" })
+                                    @Html.LabelFor(model => model.AveSalesPerSQMYear4)
+                                    @Html.ValidationMessageFor(model => model.AveSalesPerSQMYear4, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.AveEffectiveRentYear4, new { @class = "validate", @required = "", @readonly = "readonly" })
+                                    @Html.LabelFor(model => model.AveEffectiveRentYear4)
+                                    @Html.ValidationMessageFor(model => model.AveEffectiveRentYear4, "", new { @class = "text-danger" })
+                                </div>
+                            }
+                            @Html.HiddenFor(model => model.LeasingStatus)
+
+                            <div class="input-field col s12"></div>
+                            <div class="input-field col s12"></div>
+                            <div id="leasing" class="input-field col s12 scrollspy">
+                                <p><strong>Leasing </strong></p>
+                            </div>
+                            @if (User.IsInRole("admin") || User.IsInRole("Leasing Reviewer") || User.IsInRole("Leasing Head Approver"))
+                            {
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.LeasingCategorySpecialistRemarks)
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.LeasingCategorySpecialistRemarks, new { @class = "validate", @required = "" })
+                                    @Html.ValidationMessageFor(model => model.LeasingCategorySpecialistRemarks, "", new { @class = "text-danger" })
+
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.LeasingReviewDone, new { @class = "customlabel" })
+                                </div>
+                                <div class="input-field col s6">
+                                    <div class="switch">
+                                        <label>
+                                            No
+                                            <input id="leasingReviewSwitch" type="checkbox">
+                                            <span class="lever"></span>
+                                            Yes
+                                        </label>
+                                        @Html.HiddenFor(model => model.LeasingReviewDone)
+                                    </div>
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.LeasingHeadRemarks)
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.LeasingHeadRemarks, new { @class = "validate", @required = "" })
+                                    @Html.ValidationMessageFor(model => model.LeasingHeadRemarks, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.LeasingHeadVerified, new { @class = "customlabel" })
+                                </div>
+                                if (User.IsInRole("admin") || User.IsInRole("Leasing Head Approver"))
+                                {
+
+                                    <div class="input-field col s6">
+                                        <div class="switch">
+                                            <label>
+                                                No
+                                                <input id="leasingHeadVerifiedswitch" type="checkbox">
+                                                <span class="lever"></span>
+                                                Yes
+                                            </label>
+                                            @Html.HiddenFor(model => model.LeasingHeadVerified)
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="input-field col s6">
+                                        <div class="switch">
+                                            <label>
+                                                No
+                                                <input id="leasingHeadVerifiedswitch" type="checkbox" disabled>
+                                                <span class="lever"></span>
+                                                Yes
+                                            </label>
+                                            @Html.HiddenFor(model => model.LeasingHeadVerified)
+                                        </div>
+                                    </div>
+                                }
+                            }
+
+                            else
+                            {
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.LeasingCategorySpecialistRemarks)
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.LeasingCategorySpecialistRemarks, new { @class = "validate", @required = "", @readOnly = "readOnly" })
+                                    @Html.ValidationMessageFor(model => model.LeasingCategorySpecialistRemarks, "", new { @class = "text-danger" })
+
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.LeasingReviewDone, new { @class = "customlabel" })
+                                </div>
+                                <div class="input-field col s6">
+                                    <div class="switch">
+                                        <label>
+                                            No
+                                            <input id="leasingReviewSwitch" type="checkbox" disabled>
+                                            <span class="lever"></span>
+                                            Yes
+                                        </label>
+                                        @Html.HiddenFor(model => model.LeasingReviewDone)
+                                    </div>
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.LeasingHeadVerified, new { @class = "customlabel" })
+                                </div>
+                                <div class="input-field col s6">
+                                    <div class="switch">
+                                        <label>
+                                            No
+                                            <input id="leasingHeadVerifiedswitch" type="checkbox" disabled>
+                                            <span class="lever"></span>
+                                            Yes
+                                        </label>
+                                        @Html.HiddenFor(model => model.LeasingHeadVerified)
+                                    </div>
+                                </div>
+                            }
+
+                            <div class="input-field col s12"></div>
+                            <div class="input-field col s12"></div>
+                            <div id="design" class="input-field col s12 scrollspy">
+                                <p><strong>Design </strong></p>
+                            </div>
+                            @if (User.IsInRole("admin") || User.IsInRole("Design Head Approver") || User.IsInRole("Design Reviewer"))
+                            {
+                                <div class="input-field col s12">
+                                    @Html.LabelFor(model => model.DesignStatus, new { @class = "customlabel" })
+                                    <div class="col s6"></div>
+                                    <div class="col s3">
+                                        <label>
+                                            @Html.RadioButtonFor(model => model.DesignStatus, "1", new { @class = "with-gap" })
+                                            <span>For Renewal</span>
+                                        </label>
+                                    </div>
+                                    <div class="col s3">
+                                        <label>
+                                            @Html.RadioButtonFor(model => model.DesignStatus, "0", new { @class = "with-gap" })
+                                            <span>Hold</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.ForMajorRenovation, new { @class = "customlabel" })
+                                </div>
+                                <div class="input-field col s6">
+                                    <div class="switch">
+                                        <label>
+                                            No
+                                            <input id="forMajorRenovationswitch" type="checkbox">
+                                            <span class="lever"></span>
+                                            Yes
+                                        </label>
+                                        @Html.HiddenFor(model => model.ForMajorRenovation)
+                                    </div>
+                                </div>
+                                <div class="input-field col s6">
+
+                                    @Html.LabelFor(model => model.DesignRemarks)
+                                    @Html.ValidationMessageFor(model => model.DesignRemarks, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.DesignRemarks, new { @class = "validate", @required = "" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.DesignReviewDone, new { @class = "customlabel" })
+                                </div>
+                                <div class="input-field col s6">
+                                    <div class="switch">
+                                        <label>
+                                            No
+                                            <input id="designReviewDoneswitch" type="checkbox">
+                                            <span class="lever"></span>
+                                            Yes
+                                        </label>
+                                        @Html.HiddenFor(model => model.DesignReviewDone)
+                                    </div>
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.DesignHeadVerified, new { @class = "customlabel" })
+                                </div>
+                                if (User.IsInRole("admin") || User.IsInRole("Design Head Approver"))
+                                {
+                                    <div class="input-field col s6">
+                                        <div class="switch">
+                                            <label>
+                                                No
+                                                <input id="designHeadVerifiedswitch" type="checkbox">
+                                                <span class="lever"></span>
+                                                Yes
+                                            </label>
+                                            @Html.HiddenFor(model => model.DesignHeadVerified)
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="input-field col s6">
+                                        <div class="switch">
+                                            <label>
+                                                No
+                                                <input id="designHeadVerifiedswitch" type="checkbox" disabled>
+                                                <span class="lever"></span>
+                                                Yes
+                                            </label>
+                                            @Html.HiddenFor(model => model.DesignHeadVerified)
+                                        </div>
+                                    </div>}
+                            }
+
+                            else
+                            {
+                                <div class="input-field col s12">
+                                    @Html.LabelFor(model => model.DesignStatus, new { @class = "customlabel" })
+                                    <div class="col s6"></div>
+                                    <div class="col s3">
+                                        <label>
+                                            @Html.RadioButtonFor(model => model.DesignStatus, "1", new { @class = "with-gap", @disabled = "disabled" })
+                                            <span>For Renewal</span>
+                                        </label>
+                                    </div>
+                                    <div class="col s3">
+                                        <label>
+                                            @Html.RadioButtonFor(model => model.DesignStatus, "0", new { @class = "with-gap", @disabled = "disabled" })
+                                            <span>Hold</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.ForMajorRenovation, new { @class = "customlabel" })
+                                </div>
+                                <div class="input-field col s6">
+                                    <div class="switch">
+                                        <label>
+                                            No
+                                            <input id="forMajorRenovationswitch" type="checkbox" disabled>
+                                            <span class="lever"></span>
+                                            Yes
+                                        </label>
+                                        @Html.HiddenFor(model => model.ForMajorRenovation)
+                                    </div>
+                                </div>
+                                <div class="input-field col s6">
+
+                                    @Html.LabelFor(model => model.DesignRemarks)
+                                    @Html.ValidationMessageFor(model => model.DesignRemarks, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.DesignRemarks, new { @class = "validate", @required = "", @readOnly = "readOnly" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.DesignReviewDone, new { @class = "customlabel" })
+                                </div>
+                                <div class="input-field col s6">
+                                    <div class="switch">
+                                        <label>
+                                            No
+                                            <input id="designReviewDoneswitch" type="checkbox" disabled>
+                                            <span class="lever"></span>
+                                            Yes
+                                        </label>
+                                        @Html.HiddenFor(model => model.DesignReviewDone)
+                                    </div>
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.DesignHeadVerified, new { @class = "customlabel" })
+                                </div>
+                                <div class="input-field col s6">
+                                    <div class="switch">
+                                        <label>
+                                            No
+                                            <input id="designHeadVerifiedswitch" type="checkbox" disabled>
+                                            <span class="lever"></span>
+                                            Yes
+                                        </label>
+                                        @Html.HiddenFor(model => model.DesignHeadVerified)
+                                    </div>
+                                </div>
+                            }
+                            @Html.HiddenFor(model => model.DesignStatus)
+                            <div class="input-field col s12"></div>
+                            <div class="input-field col s12"></div>
+                            <div id="operation" class="input-field col s12 scrollspy">
+                                <p><strong>Operation </strong></p>
+                            </div>
+                            @if (User.IsInRole("admin") || User.IsInRole("Operations Head Approver"))
+                            {
+                                <div class="input-field col s12">
+                                    @Html.LabelFor(model => model.OperationStatus, new { @class = "customlabel" })
+                                    <div class="col s6"></div>
+                                    <div class="col s3">
+                                        <label>
+                                            @Html.RadioButtonFor(model => model.OperationStatus, "1", new { @class = "with-gap" })
+                                            <span>For Renewal</span>
+                                        </label>
+                                    </div>
+                                    <div class="col s3">
+                                        <label>
+                                            @Html.RadioButtonFor(model => model.OperationStatus, "0", new { @class = "with-gap" })
+                                            <span>Hold</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.OperationFacilitiesRemarks)
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.OperationFacilitiesRemarks, new { @class = "validate", @required = "" })
+                                    @Html.ValidationMessageFor(model => model.OperationFacilitiesRemarks, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.OperationFacilitiesReviewDone, new { @class = "customlabel" })
+                                </div>
+                                <div class="input-field col s6">
+                                    <div class="switch">
+                                        <label>
+                                            No
+                                            <input id="operationFacilitiesReviewDoneswitch" type="checkbox">
+                                            <span class="lever"></span>
+                                            Yes
+                                        </label>
+                                        @Html.HiddenFor(model => model.OperationFacilitiesReviewDone)
+                                    </div>
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.OperationTenancyRemarks)
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.OperationTenancyRemarks, new { @class = "validate", @required = "" })
+                                    @Html.ValidationMessageFor(model => model.OperationTenancyRemarks, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.OperationsTenancyReviewDone, new { @class = "customlabel" })
+                                </div>
+                                <div class="input-field col s6">
+                                    <div class="switch">
+                                        <label>
+                                            No
+                                            <input id="operationsTenancyReviewDoneswitch" type="checkbox">
+                                            <span class="lever"></span>
+                                            Yes
+                                        </label>
+                                        @Html.HiddenFor(model => model.OperationsTenancyReviewDone)
+                                    </div>
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.OperationHouseKeepingRemarks)
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.OperationHouseKeepingRemarks, new { @class = "validate", @required = "" })
+                                    @Html.ValidationMessageFor(model => model.OperationHouseKeepingRemarks, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.OperationHouseKeepingReviewDone, new { @class = "customlabel" })
+                                </div>
+                                <div class="input-field col s6">
+                                    <div class="switch">
+                                        <label>
+                                            No
+                                            <input id="operationHouseKeepingReviewDoneswitch" type="checkbox">
+                                            <span class="lever"></span>
+                                            Yes
+                                        </label>
+                                        @Html.HiddenFor(model => model.OperationHouseKeepingReviewDone)
+                                    </div>
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.OperationSecurityRemarks)
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.OperationSecurityRemarks, new { @class = "validate", @required = "" })
+                                    @Html.ValidationMessageFor(model => model.OperationSecurityRemarks, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.OperationSecurityReviewDone, new { @class = "customlabel" })
+                                </div>
+                                <div class="input-field col s6">
+                                    <div class="switch">
+                                        <label>
+                                            No
+                                            <input id="operationSecurityReviewDoneswitch" type="checkbox">
+                                            <span class="lever"></span>
+                                            Yes
+                                        </label>
+                                        @Html.HiddenFor(model => model.OperationSecurityReviewDone)
+                                    </div>
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.OperationsHeadVerified, new { @class = "customlabel" })
+                                </div>
+                                <div class="input-field col s6">
+                                    <div class="switch">
+                                        <label>
+                                            No
+                                            <input id="operationsHeadVerifiedswitch" type="checkbox">
+                                            <span class="lever"></span>
+                                            Yes
+                                        </label>
+                                        @Html.HiddenFor(model => model.OperationsHeadVerified)
+                                    </div>
+                                </div>
+                            }
+
+                            else if (User.IsInRole("Operation Facilities Reviewer"))
+                            {
+                                <div class="input-field col s12">
+                                    @Html.LabelFor(model => model.OperationStatus, new { @class = "customlabel" })
+                                    <div class="col s6"></div>
+                                    <div class="col s3">
+                                        <label>
+                                            @Html.RadioButtonFor(model => model.OperationStatus, "1", new { @class = "with-gap", @disabled = "disabled" })
+                                            <span>For Renewal</span>
+                                        </label>
+                                    </div>
+                                    <div class="col s3">
+                                        <label>
+                                            @Html.RadioButtonFor(model => model.OperationStatus, "0", new { @class = "with-gap", @disabled = "disabled" })
+                                            <span>Hold</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.OperationFacilitiesRemarks)
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.OperationFacilitiesRemarks, new { @class = "validate", @required = "" })
+                                    @Html.ValidationMessageFor(model => model.OperationFacilitiesRemarks, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.OperationFacilitiesReviewDone, new { @class = "customlabel" })
+                                </div>
+                                <div class="input-field col s6">
+                                    <div class="switch">
+                                        <label>
+                                            No
+                                            <input id="operationFacilitiesReviewDoneswitch" type="checkbox">
+                                            <span class="lever"></span>
+                                            Yes
+                                        </label>
+                                        @Html.HiddenFor(model => model.OperationFacilitiesReviewDone)
+                                    </div>
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.OperationTenancyRemarks)
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.OperationTenancyRemarks, new { @class = "validate", @required = "", @readOnly = "readOnly" })
+                                    @Html.ValidationMessageFor(model => model.OperationTenancyRemarks, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.OperationsTenancyReviewDone, new { @class = "customlabel" })
+                                </div>
+                                <div class="input-field col s6">
+                                    <div class="switch">
+                                        <label>
+                                            No
+                                            <input id="operationsTenancyReviewDoneswitch" type="checkbox" disabled>
+                                            <span class="lever"></span>
+                                            Yes
+                                        </label>
+                                        @Html.HiddenFor(model => model.OperationsTenancyReviewDone)
+                                    </div>
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.OperationHouseKeepingRemarks)
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.OperationHouseKeepingRemarks, new { @class = "validate", @required = "", @readOnly = "readOnly" })
+                                    @Html.ValidationMessageFor(model => model.OperationHouseKeepingRemarks, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.OperationHouseKeepingReviewDone, new { @class = "customlabel" })
+                                </div>
+                                <div class="input-field col s6">
+                                    <div class="switch">
+                                        <label>
+                                            No
+                                            <input id="operationHouseKeepingReviewDoneswitch" type="checkbox" disabled>
+                                            <span class="lever"></span>
+                                            Yes
+                                        </label>
+                                        @Html.HiddenFor(model => model.OperationHouseKeepingReviewDone)
+                                    </div>
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.OperationSecurityRemarks)
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.OperationSecurityRemarks, new { @class = "validate", @required = "", @readOnly = "readOnly" })
+                                    @Html.ValidationMessageFor(model => model.OperationSecurityRemarks, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.OperationSecurityReviewDone, new { @class = "customlabel" })
+                                </div>
+                                <div class="input-field col s6">
+                                    <div class="switch">
+                                        <label>
+                                            No
+                                            <input id="operationSecurityReviewDoneswitch" type="checkbox" disabled>
+                                            <span class="lever"></span>
+                                            Yes
+                                        </label>
+                                        @Html.HiddenFor(model => model.OperationSecurityReviewDone)
+                                    </div>
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.OperationsHeadVerified, new { @class = "customlabel" })
+                                </div>
+                                <div class="input-field col s6">
+                                    <div class="switch">
+                                        <label>
+                                            No
+                                            <input id="operationsHeadVerifiedswitch" type="checkbox" disabled>
+                                            <span class="lever"></span>
+                                            Yes
+                                        </label>
+                                        @Html.HiddenFor(model => model.OperationsHeadVerified)
+                                    </div>
+                                </div>
+                            }
+
+                            else if (User.IsInRole("Operations Tenancy Reviewer"))
+                            {
+                                <div class="input-field col s12">
+                                    @Html.LabelFor(model => model.OperationStatus, new { @class = "customlabel" })
+                                    <div class="col s6"></div>
+                                    <div class="col s3">
+                                        <label>
+                                            @Html.RadioButtonFor(model => model.OperationStatus, "1", new { @class = "with-gap", @disabled = "disabled" })
+                                            <span>For Renewal</span>
+                                        </label>
+                                    </div>
+                                    <div class="col s3">
+                                        <label>
+                                            @Html.RadioButtonFor(model => model.OperationStatus, "0", new { @class = "with-gap", @disabled = "disabled" })
+                                            <span>Hold</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.OperationFacilitiesRemarks)
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.OperationFacilitiesRemarks, new { @class = "validate", @required = "", @readOnly = "readOnly" })
+                                    @Html.ValidationMessageFor(model => model.OperationFacilitiesRemarks, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.OperationFacilitiesReviewDone, new { @class = "customlabel" })
+                                </div>
+                                <div class="input-field col s6">
+                                    <div class="switch">
+                                        <label>
+                                            No
+                                            <input id="operationFacilitiesReviewDoneswitch" type="checkbox" disabled>
+                                            <span class="lever"></span>
+                                            Yes
+                                        </label>
+                                        @Html.HiddenFor(model => model.OperationFacilitiesReviewDone)
+                                    </div>
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.OperationTenancyRemarks)
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.OperationTenancyRemarks, new { @class = "validate", @required = "" })
+                                    @Html.ValidationMessageFor(model => model.OperationTenancyRemarks, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.OperationsTenancyReviewDone, new { @class = "customlabel" })
+                                </div>
+                                <div class="input-field col s6">
+                                    <div class="switch">
+                                        <label>
+                                            No
+                                            <input id="operationsTenancyReviewDoneswitch" type="checkbox">
+                                            <span class="lever"></span>
+                                            Yes
+                                        </label>
+                                        @Html.HiddenFor(model => model.OperationsTenancyReviewDone)
+                                    </div>
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.OperationHouseKeepingRemarks)
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.OperationHouseKeepingRemarks, new { @class = "validate", @required = "", @readOnly = "readOnly" })
+                                    @Html.ValidationMessageFor(model => model.OperationHouseKeepingRemarks, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.OperationHouseKeepingReviewDone, new { @class = "customlabel" })
+                                </div>
+                                <div class="input-field col s6">
+                                    <div class="switch">
+                                        <label>
+                                            No
+                                            <input id="operationHouseKeepingReviewDoneswitch" type="checkbox" disabled>
+                                            <span class="lever"></span>
+                                            Yes
+                                        </label>
+                                        @Html.HiddenFor(model => model.OperationHouseKeepingReviewDone)
+                                    </div>
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.OperationSecurityRemarks)
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.OperationSecurityRemarks, new { @class = "validate", @required = "", @readOnly = "readOnly" })
+                                    @Html.ValidationMessageFor(model => model.OperationSecurityRemarks, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.OperationSecurityReviewDone, new { @class = "customlabel" })
+                                </div>
+                                <div class="input-field col s6">
+                                    <div class="switch">
+                                        <label>
+                                            No
+                                            <input id="operationSecurityReviewDoneswitch" type="checkbox" disabled>
+                                            <span class="lever"></span>
+                                            Yes
+                                        </label>
+                                        @Html.HiddenFor(model => model.OperationSecurityReviewDone)
+                                    </div>
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.OperationsHeadVerified, new { @class = "customlabel" })
+                                </div>
+                                <div class="input-field col s6">
+                                    <div class="switch">
+                                        <label>
+                                            No
+                                            <input id="operationsHeadVerifiedswitch" type="checkbox" disabled>
+                                            <span class="lever"></span>
+                                            Yes
+                                        </label>
+                                        @Html.HiddenFor(model => model.OperationsHeadVerified)
+                                    </div>
+                                </div>
+                            }
+
+                            else if (User.IsInRole("Operation House Keeping Reviewer"))
+                            {
+                                <div class="input-field col s12">
+                                    @Html.LabelFor(model => model.OperationStatus, new { @class = "customlabel" })
+                                    <div class="col s6"></div>
+                                    <div class="col s3">
+                                        <label>
+                                            @Html.RadioButtonFor(model => model.OperationStatus, "1", new { @class = "with-gap", @disabled = "disabled" })
+                                            <span>For Renewal</span>
+                                        </label>
+                                    </div>
+                                    <div class="col s3">
+                                        <label>
+                                            @Html.RadioButtonFor(model => model.OperationStatus, "0", new { @class = "with-gap", @disabled = "disabled" })
+                                            <span>Hold</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.OperationFacilitiesRemarks)
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.OperationFacilitiesRemarks, new { @class = "validate", @required = "", @readOnly = "readOnly" })
+                                    @Html.ValidationMessageFor(model => model.OperationFacilitiesRemarks, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.OperationFacilitiesReviewDone, new { @class = "customlabel" })
+                                </div>
+                                <div class="input-field col s6">
+                                    <div class="switch">
+                                        <label>
+                                            No
+                                            <input id="operationFacilitiesReviewDoneswitch" type="checkbox" disabled>
+                                            <span class="lever"></span>
+                                            Yes
+                                        </label>
+                                        @Html.HiddenFor(model => model.OperationFacilitiesReviewDone)
+                                    </div>
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.OperationTenancyRemarks)
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.OperationTenancyRemarks, new { @class = "validate", @required = "", @readOnly = "readOnly" })
+                                    @Html.ValidationMessageFor(model => model.OperationTenancyRemarks, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.OperationsTenancyReviewDone, new { @class = "customlabel" })
+                                </div>
+                                <div class="input-field col s6">
+                                    <div class="switch">
+                                        <label>
+                                            No
+                                            <input id="operationsTenancyReviewDoneswitch" type="checkbox" disabled>
+                                            <span class="lever"></span>
+                                            Yes
+                                        </label>
+                                        @Html.HiddenFor(model => model.OperationsTenancyReviewDone)
+                                    </div>
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.OperationHouseKeepingRemarks)
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.OperationHouseKeepingRemarks, new { @class = "validate", @required = "" })
+                                    @Html.ValidationMessageFor(model => model.OperationHouseKeepingRemarks, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.OperationHouseKeepingReviewDone, new { @class = "customlabel" })
+                                </div>
+                                <div class="input-field col s6">
+                                    <div class="switch">
+                                        <label>
+                                            No
+                                            <input id="operationHouseKeepingReviewDoneswitch" type="checkbox">
+                                            <span class="lever"></span>
+                                            Yes
+                                        </label>
+                                        @Html.HiddenFor(model => model.OperationHouseKeepingReviewDone)
+                                    </div>
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.OperationSecurityRemarks)
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.OperationSecurityRemarks, new { @class = "validate", @required = "", @readOnly = "readOnly" })
+                                    @Html.ValidationMessageFor(model => model.OperationSecurityRemarks, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.OperationSecurityReviewDone, new { @class = "customlabel" })
+                                </div>
+                                <div class="input-field col s6">
+                                    <div class="switch">
+                                        <label>
+                                            No
+                                            <input id="operationSecurityReviewDoneswitch" type="checkbox" disabled>
+                                            <span class="lever"></span>
+                                            Yes
+                                        </label>
+                                        @Html.HiddenFor(model => model.OperationSecurityReviewDone)
+                                    </div>
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.OperationsHeadVerified, new { @class = "customlabel" })
+                                </div>
+                                <div class="input-field col s6">
+                                    <div class="switch">
+                                        <label>
+                                            No
+                                            <input id="operationsHeadVerifiedswitch" type="checkbox" disabled>
+                                            <span class="lever"></span>
+                                            Yes
+                                        </label>
+                                        @Html.HiddenFor(model => model.OperationsHeadVerified)
+                                    </div>
+                                </div>
+                            }
+                            else if (User.IsInRole("Operation Security Reviewer"))
+                            {
+                                <div class="input-field col s12">
+                                    @Html.LabelFor(model => model.OperationStatus, new { @class = "customlabel" })
+                                    <div class="col s6"></div>
+                                    <div class="col s3">
+                                        <label>
+                                            @Html.RadioButtonFor(model => model.OperationStatus, "1", new { @class = "with-gap", @disabled = "disabled" })
+                                            <span>For Renewal</span>
+                                        </label>
+                                    </div>
+                                    <div class="col s3">
+                                        <label>
+                                            @Html.RadioButtonFor(model => model.OperationStatus, "0", new { @class = "with-gap", @disabled = "disabled" })
+                                            <span>Hold</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.OperationFacilitiesRemarks)
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.OperationFacilitiesRemarks, new { @class = "validate", @required = "", @readOnly = "readOnly" })
+                                    @Html.ValidationMessageFor(model => model.OperationFacilitiesRemarks, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.OperationFacilitiesReviewDone, new { @class = "customlabel" })
+                                </div>
+                                <div class="input-field col s6">
+                                    <div class="switch">
+                                        <label>
+                                            No
+                                            <input id="operationFacilitiesReviewDoneswitch" type="checkbox" disabled>
+                                            <span class="lever"></span>
+                                            Yes
+                                        </label>
+                                        @Html.HiddenFor(model => model.OperationFacilitiesReviewDone)
+                                    </div>
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.OperationTenancyRemarks)
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.OperationTenancyRemarks, new { @class = "validate", @required = "", @readOnly = "readOnly" })
+                                    @Html.ValidationMessageFor(model => model.OperationTenancyRemarks, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.OperationsTenancyReviewDone, new { @class = "customlabel" })
+                                </div>
+                                <div class="input-field col s6">
+                                    <div class="switch">
+                                        <label>
+                                            No
+                                            <input id="operationsTenancyReviewDoneswitch" type="checkbox" disabled>
+                                            <span class="lever"></span>
+                                            Yes
+                                        </label>
+                                        @Html.HiddenFor(model => model.OperationsTenancyReviewDone)
+                                    </div>
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.OperationHouseKeepingRemarks)
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.OperationHouseKeepingRemarks, new { @class = "validate", @required = "", @readOnly = "readOnly" })
+                                    @Html.ValidationMessageFor(model => model.OperationHouseKeepingRemarks, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.OperationHouseKeepingReviewDone, new { @class = "customlabel" })
+                                </div>
+                                <div class="input-field col s6">
+                                    <div class="switch">
+                                        <label>
+                                            No
+                                            <input id="operationHouseKeepingReviewDoneswitch" type="checkbox" disabled>
+                                            <span class="lever"></span>
+                                            Yes
+                                        </label>
+                                        @Html.HiddenFor(model => model.OperationHouseKeepingReviewDone)
+                                    </div>
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.OperationSecurityRemarks)
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.OperationSecurityRemarks, new { @class = "validate", @required = "" })
+                                    @Html.ValidationMessageFor(model => model.OperationSecurityRemarks, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.OperationSecurityReviewDone, new { @class = "customlabel" })
+                                </div>
+                                <div class="input-field col s6">
+                                    <div class="switch">
+                                        <label>
+                                            No
+                                            <input id="operationSecurityReviewDoneswitch" type="checkbox">
+                                            <span class="lever"></span>
+                                            Yes
+                                        </label>
+                                        @Html.HiddenFor(model => model.OperationSecurityReviewDone)
+                                    </div>
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.OperationsHeadVerified, new { @class = "customlabel" })
+                                </div>
+                                <div class="input-field col s6">
+                                    <div class="switch">
+                                        <label>
+                                            No
+                                            <input id="operationsHeadVerifiedswitch" type="checkbox" disabled>
+                                            <span class="lever"></span>
+                                            Yes
+                                        </label>
+                                        @Html.HiddenFor(model => model.OperationsHeadVerified)
+                                    </div>
+                                </div>
+                            }
+                            else if (User.IsInRole("admin") || User.IsInRole("Operations Head Approver"))
+                            {
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.OperationsHeadVerified, new { @class = "customlabel" })
+                                </div>
+                                <div class="input-field col s6">
+                                    <div class="switch">
+                                        <label>
+                                            No
+                                            <input id="operationsHeadVerifiedswitch" type="checkbox">
+                                            <span class="lever"></span>
+                                            Yes
+                                        </label>
+                                        @Html.HiddenFor(model => model.OperationsHeadVerified)
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="input-field col s12">
+                                    @Html.LabelFor(model => model.OperationStatus, new { @class = "customlabel" })
+                                    <div class="col s6"></div>
+                                    <div class="col s3">
+                                        <label>
+                                            @Html.RadioButtonFor(model => model.OperationStatus, "1", new { @class = "with-gap", @disabled = "disabled" })
+                                            <span>For Renewal</span>
+                                        </label>
+                                    </div>
+                                    <div class="col s3">
+                                        <label>
+                                            @Html.RadioButtonFor(model => model.OperationStatus, "0", new { @class = "with-gap", @disabled = "disabled" })
+                                            <span>Hold</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.OperationFacilitiesRemarks)
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.OperationFacilitiesRemarks, new { @class = "validate", @required = "", @readOnly = "readOnly" })
+                                    @Html.ValidationMessageFor(model => model.OperationFacilitiesRemarks, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.OperationFacilitiesReviewDone, new { @class = "customlabel" })
+                                </div>
+                                <div class="input-field col s6">
+                                    <div class="switch">
+                                        <label>
+                                            No
+                                            <input id="operationFacilitiesReviewDoneswitch" type="checkbox" disabled>
+                                            <span class="lever"></span>
+                                            Yes
+                                        </label>
+                                        @Html.HiddenFor(model => model.OperationFacilitiesReviewDone)
+                                    </div>
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.OperationTenancyRemarks)
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.OperationTenancyRemarks, new { @class = "validate", @required = "", @readOnly = "readOnly" })
+                                    @Html.ValidationMessageFor(model => model.OperationTenancyRemarks, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.OperationsTenancyReviewDone, new { @class = "customlabel" })
+                                </div>
+                                <div class="input-field col s6">
+                                    <div class="switch">
+                                        <label>
+                                            No
+                                            <input id="operationsTenancyReviewDoneswitch" type="checkbox" disabled>
+                                            <span class="lever"></span>
+                                            Yes
+                                        </label>
+                                        @Html.HiddenFor(model => model.OperationsTenancyReviewDone)
+                                    </div>
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.OperationHouseKeepingRemarks)
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.OperationHouseKeepingRemarks, new { @class = "validate", @required = "", @readOnly = "readOnly" })
+                                    @Html.ValidationMessageFor(model => model.OperationHouseKeepingRemarks, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.OperationHouseKeepingReviewDone, new { @class = "customlabel" })
+                                </div>
+                                <div class="input-field col s6">
+                                    <div class="switch">
+                                        <label>
+                                            No
+                                            <input id="operationHouseKeepingReviewDoneswitch" type="checkbox" disabled>
+                                            <span class="lever"></span>
+                                            Yes
+                                        </label>
+                                        @Html.HiddenFor(model => model.OperationHouseKeepingReviewDone)
+                                    </div>
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.OperationSecurityRemarks)
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.OperationSecurityRemarks, new { @class = "validate", @required = "", @readOnly = "readOnly" })
+                                    @Html.ValidationMessageFor(model => model.OperationSecurityRemarks, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.OperationSecurityReviewDone, new { @class = "customlabel" })
+                                </div>
+                                <div class="input-field col s6">
+                                    <div class="switch">
+                                        <label>
+                                            No
+                                            <input id="operationSecurityReviewDoneswitch" type="checkbox" disabled>
+                                            <span class="lever"></span>
+                                            Yes
+                                        </label>
+                                        @Html.HiddenFor(model => model.OperationSecurityReviewDone)
+                                    </div>
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.OperationsHeadVerified, new { @class = "customlabel" })
+                                </div>
+                                <div class="input-field col s6">
+                                    <div class="switch">
+                                        <label>
+                                            No
+                                            <input id="operationsHeadVerifiedswitch" type="checkbox" disabled>
+                                            <span class="lever"></span>
+                                            Yes
+                                        </label>
+                                        @Html.HiddenFor(model => model.OperationsHeadVerified)
+                                    </div>
+                                </div>
+                            }
+                            @Html.HiddenFor(model => model.OperationStatus)
+                            <div class="input-field col s12"></div>
+                            <div class="input-field col s12"></div>
+                            <div id="it" class="input-field col s12 scrollspy">
+                                <p><strong>Information Technology </strong></p>
+                            </div>
+
+                            @if (User.IsInRole("admin") || User.IsInRole("IT Head Approver") || User.IsInRole("IT Reviewer"))
+                            {
+                                <div class="input-field col s12">
+                                    @Html.LabelFor(model => model.ITStatus, new { @class = "customlabel" })
+                                    <div class="col s6"></div>
+                                    <div class="col s3">
+                                        <label>
+                                            @Html.RadioButtonFor(model => model.ITStatus, "1", new { @class = "with-gap" })
+                                            <span>For Renewal</span>
+                                        </label>
+                                    </div>
+                                    <div class="col s3">
+                                        <label>
+                                            @Html.RadioButtonFor(model => model.ITStatus, "0", new { @class = "with-gap" })
+                                            <span>Hold</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.POSSystemAgreement)
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.POSSystemAgreement, new { @class = "validate", @required = "" })
+                                    @Html.ValidationMessageFor(model => model.POSSystemAgreement, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.DailySalesReporting)
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.DailySalesReporting, new { @class = "validate", @required = "" })
+                                    @Html.ValidationMessageFor(model => model.DailySalesReporting, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.ITRemarks)
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.ITRemarks, new { @class = "validate", @required = "" })
+                                    @Html.ValidationMessageFor(model => model.ITRemarks, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.ITReviewDone, new { @class = "customlabel" })
+                                </div>
+                                <div class="input-field col s6">
+                                    <div class="switch">
+                                        <label>
+                                            No
+                                            <input id="iTReviewDoneswitch" type="checkbox">
+                                            <span class="lever"></span>
+                                            Yes
+                                        </label>
+                                        @Html.HiddenFor(model => model.ITReviewDone)
+                                    </div>
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.ITHeadVerified, new { @class = "customlabel" })
+                                </div>
+                                if (User.IsInRole("admin") || User.IsInRole("IT Head Approver"))
+                                {
+                                    <div class="input-field col s6">
+                                        <div class="switch">
+                                            <label>
+                                                No
+                                                <input id="iTHeadVerifiedswitch" type="checkbox">
+                                                <span class="lever"></span>
+                                                Yes
+                                            </label>
+                                            @Html.HiddenFor(model => model.ITHeadVerified)
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="input-field col s6">
+                                        <div class="switch">
+                                            <label>
+                                                No
+                                                <input id="iTHeadVerifiedswitch" type="checkbox" disabled>
+                                                <span class="lever"></span>
+                                                Yes
+                                            </label>
+                                            @Html.HiddenFor(model => model.ITHeadVerified)
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <div class="input-field col s12">
+                                    @Html.LabelFor(model => model.ITStatus, new { @class = "customlabel" })
+                                    <div class="col s6"></div>
+                                    <div class="col s3">
+                                        <label>
+                                            @Html.RadioButtonFor(model => model.ITStatus, "1", new { @class = "with-gap", @disabled = "disabled" })
+                                            <span>For Renewal</span>
+                                        </label>
+                                    </div>
+                                    <div class="col s3">
+                                        <label>
+                                            @Html.RadioButtonFor(model => model.ITStatus, "0", new { @class = "with-gap", @disabled = "disabled" })
+                                            <span>Hold</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.POSSystemAgreement)
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.POSSystemAgreement, new { @class = "validate", @required = "", @readOnly = "readOnly" })
+                                    @Html.ValidationMessageFor(model => model.POSSystemAgreement, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.DailySalesReporting)
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.DailySalesReporting, new { @class = "validate", @required = "", @readOnly = "readOnly" })
+                                    @Html.ValidationMessageFor(model => model.DailySalesReporting, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.ITRemarks)
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.ITRemarks, new { @class = "validate", @required = "", @readOnly = "readOnly" })
+                                    @Html.ValidationMessageFor(model => model.ITRemarks, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.ITReviewDone, new { @class = "customlabel" })
+                                </div>
+                                <div class="input-field col s6">
+                                    <div class="switch">
+                                        <label>
+                                            No
+                                            <input id="iTReviewDoneswitch" type="checkbox" disabled>
+                                            <span class="lever"></span>
+                                            Yes
+                                        </label>
+                                        @Html.HiddenFor(model => model.ITReviewDone)
+                                    </div>
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.ITHeadVerified, new { @class = "customlabel" })
+                                </div>
+                                <div class="input-field col s6">
+                                    <div class="switch">
+                                        <label>
+                                            No
+                                            <input id="iTHeadVerifiedswitch" type="checkbox" disabled>
+                                            <span class="lever"></span>
+                                            Yes
+                                        </label>
+                                        @Html.HiddenFor(model => model.ITHeadVerified)
+                                    </div>
+                                </div>
+                            }
+                            @Html.HiddenFor(model => model.ITStatus)
+                            <div class="input-field col s12"></div>
+                            <div class="input-field col s12"></div>
+                            <div id="finance" class="input-field col s12 scrollspy">
+                                <p><strong>Finance </strong></p>
+                            </div>
+
+                            @if (User.IsInRole("admin") || User.IsInRole("Finance Head Approver") || User.IsInRole("Finance Reviewer"))
+                            {
+                                <div class="input-field col s12">
+                                    @Html.LabelFor(model => model.FinanceStatus, new { @class = "customlabel" })
+                                    <div class="col s6"></div>
+                                    <div class="col s3">
+                                        <label>
+                                            @Html.RadioButtonFor(model => model.FinanceStatus, "1", new { @class = "with-gap" })
+                                            <span>For Renewal</span>
+                                        </label>
+                                    </div>
+                                    <div class="col s3">
+                                        <label>
+                                            @Html.RadioButtonFor(model => model.FinanceStatus, "0", new { @class = "with-gap" })
+                                            <span>Hold</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.UnpaidCharges)
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.UnpaidCharges, new { @class = "validate", @required = "" })
+                                    @Html.ValidationMessageFor(model => model.UnpaidCharges, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.AdvanceRentPaid)
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.AdvanceRentPaid, new { @class = "validate", @required = "" })
+                                    @Html.ValidationMessageFor(model => model.AdvanceRentPaid, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.SecurityDepositPaid)
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.SecurityDepositPaid, new { @class = "validate", @required = "" })
+                                    @Html.ValidationMessageFor(model => model.SecurityDepositPaid, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.FinanceReviewDone, new { @class = "customlabel" })
+                                </div>
+                                <div class="input-field col s6">
+                                    <div class="switch">
+                                        <label>
+                                            No
+                                            <input id="financeReviewDoneswitch" type="checkbox">
+                                            <span class="lever"></span>
+                                            Yes
+                                        </label>
+                                        @Html.HiddenFor(model => model.FinanceReviewDone)
+                                    </div>
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.FinanceHeadVerified, new { @class = "customlabel" })
+                                </div>
+                                if (User.IsInRole("admin") || User.IsInRole("Finance Head Approver"))
+                                {
+                                    <div class="input-field col s6">
+                                        <div class="switch">
+                                            <label>
+                                                No
+                                                <input id="financeHeadVerifiedswitch" type="checkbox">
+                                                <span class="lever"></span>
+                                                Yes
+                                            </label>
+                                            @Html.HiddenFor(model => model.FinanceHeadVerified)
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="input-field col s6">
+                                        <div class="switch">
+                                            <label>
+                                                No
+                                                <input id="financeHeadVerifiedswitch" type="checkbox" disabled>
+                                                <span class="lever"></span>
+                                                Yes
+                                            </label>
+                                            @Html.HiddenFor(model => model.FinanceHeadVerified)
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <div class="input-field col s12">
+                                    @Html.LabelFor(model => model.FinanceStatus, new { @class = "customlabel" })
+                                    <div class="col s6"></div>
+                                    <div class="col s3">
+                                        <label>
+                                            @Html.RadioButtonFor(model => model.FinanceStatus, "1", new { @class = "with-gap", @disabled = "disabled" })
+                                            <span>For Renewal</span>
+                                        </label>
+                                    </div>
+                                    <div class="col s3">
+                                        <label>
+                                            @Html.RadioButtonFor(model => model.FinanceStatus, "0", new { @class = "with-gap", @disabled = "disabled" })
+                                            <span>Hold</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.UnpaidCharges)
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.UnpaidCharges, new { @class = "validate", @required = "", @readOnly = "readOnly" })
+                                    @Html.ValidationMessageFor(model => model.UnpaidCharges, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.AdvanceRentPaid)
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.AdvanceRentPaid, new { @class = "validate", @required = "", @readOnly = "readOnly" })
+                                    @Html.ValidationMessageFor(model => model.AdvanceRentPaid, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.SecurityDepositPaid)
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.SecurityDepositPaid, new { @class = "validate", @required = "", @readOnly = "readOnly" })
+                                    @Html.ValidationMessageFor(model => model.SecurityDepositPaid, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.FinanceReviewDone, new { @class = "customlabel" })
+                                </div>
+                                <div class="input-field col s6">
+                                    <div class="switch">
+                                        <label>
+                                            No
+                                            <input id="financeReviewDoneswitch" type="checkbox" disabled>
+                                            <span class="lever"></span>
+                                            Yes
+                                        </label>
+                                        @Html.HiddenFor(model => model.FinanceReviewDone)
+                                    </div>
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.FinanceHeadVerified, new { @class = "customlabel" })
+                                </div>
+                                <div class="input-field col s6">
+                                    <div class="switch">
+                                        <label>
+                                            No
+                                            <input id="financeHeadVerifiedswitch" type="checkbox" disabled>
+                                            <span class="lever"></span>
+                                            Yes
+                                        </label>
+                                        @Html.HiddenFor(model => model.FinanceHeadVerified)
+                                    </div>
+                                </div>
+                            }
+                            @Html.HiddenFor(model => model.FinanceStatus)
+                            <div class="input-field col s12"></div>
+                            <div class="input-field col s12"></div>
+                            <div id="audit" class="input-field col s12 scrollspy">
+                                <p><strong>Audit </strong></p>
+                            </div>
+                            @if (User.IsInRole("admin") || User.IsInRole("Audit Head Approver") || User.IsInRole("Audit Reviewer"))
+                            {
+                                <div class="input-field col s12">
+                                    @Html.LabelFor(model => model.Status, new { @class = "customlabel" })
+                                    <div class="col s6"></div>
+                                    <div class="col s3">
+                                        <label>
+                                            @Html.RadioButtonFor(model => model.Status, "1", new { @class = "with-gap" })
+                                            <span>For Renewal</span>
+                                        </label>
+                                    </div>
+                                    <div class="col s3">
+                                        <label>
+                                            @Html.RadioButtonFor(model => model.Status, "0", new { @class = "with-gap" })
+                                            <span>Hold</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="input-field col s12" style="margin-top: 20px">
+                                    <div class="input-field col s6"></div>
+                                    <div class="col s6">
+                                        <label>
+                                            @Html.CheckBoxFor(model => model.AuditCMSRSubmissions, new { @type = "checkbox"})
+                                            <span>CMSR Submissions</span>
+                                        </label>
+                                    </div>
+                                    <div class="col s6">
+                                        <label>
+                                           @Html.CheckBoxFor(model => model.AuditTextFileFormat, new { @type = "checkbox"})
+                                            <span>Text File Format</span>
+                                        </label>
+                                    </div>
+
+                                    @Html.LabelFor(model => model.AuditRequirements, new { @class = "customlabel" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.AuditRemarks)
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.AuditRemarks, new { @class = "validate", @required = "" })
+                                    @Html.ValidationMessageFor(model => model.AuditRemarks, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.AuditReviewDone, new { @class = "customlabel" })
+                                </div>
+                                <div class="input-field col s6">
+                                    <div class="switch">
+                                        <label>
+                                            No
+                                            <input id="auditReviewDoneswitch" type="checkbox">
+                                            <span class="lever"></span>
+                                            Yes
+                                        </label>
+                                        @Html.HiddenFor(model => model.AuditReviewDone)
+                                    </div>
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.AuditHeadVerified, new { @class = "customlabel" })
+                                </div>
+                                if (User.IsInRole("admin") || User.IsInRole("Audit Head Approver"))
+                                {
+                                    <div class="input-field col s6">
+                                        <div class="switch">
+                                            <label>
+                                                No
+                                                <input id="auditHeadVerifiedswitch" type="checkbox">
+                                                <span class="lever"></span>
+                                                Yes
+                                            </label>
+                                            @Html.HiddenFor(model => model.AuditHeadVerified)
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="input-field col s6">
+                                        <div class="switch">
+                                            <label>
+                                                No
+                                                <input id="auditHeadVerifiedswitch" type="checkbox" disabled>
+                                                <span class="lever"></span>
+                                                Yes
+                                            </label>
+                                            @Html.HiddenFor(model => model.AuditHeadVerified)
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <div class="input-field col s12">
+                                    @Html.LabelFor(model => model.Status, new { @class = "customlabel" })
+                                    <div class="col s6"></div>
+                                    <div class="col s3">
+                                        <label>
+                                            @Html.RadioButtonFor(model => model.Status, "1", new { @class = "with-gap", @disabled = "disabled" })
+                                            <span>For Renewal</span>
+                                        </label>
+                                    </div>
+                                    <div class="col s3">
+                                        <label>
+                                            @Html.RadioButtonFor(model => model.Status, "0", new { @class = "with-gap", @disabled = "disabled" })
+                                            <span>Hold</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="input-field col s12" style="margin-top: 20px">
+                                    <div class="input-field col s6"></div>
+                                    <div class="col s6">
+                                        <label>
+                                            <input type="checkbox" class="filled-in" checked="checked" disabled />
+                                            <span>CMSR Submissions</span>
+                                        </label>
+                                    </div>
+                                    <div class="col s6">
+                                        <label>
+                                            <input type="checkbox" class="filled-in" checked="checked" disabled />
+                                            <span>Text File Format</span>
+                                        </label>
+                                    </div>
+
+                                    @Html.LabelFor(model => model.AuditRequirements, new { @class = "customlabel" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.AuditRemarks)
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.AuditRemarks, new { @class = "validate", @required = "", @readOnly = "readOnly" })
+                                    @Html.ValidationMessageFor(model => model.AuditRemarks, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.AuditReviewDone, new { @class = "customlabel" })
+                                </div>
+                                <div class="input-field col s6">
+                                    <div class="switch">
+                                        <label>
+                                            No
+                                            <input id="auditReviewDoneswitch" type="checkbox" disabled>
+                                            <span class="lever"></span>
+                                            Yes
+                                        </label>
+                                        @Html.HiddenFor(model => model.AuditReviewDone)
+                                    </div>
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.AuditHeadVerified, new { @class = "customlabel" })
+                                </div>
+                                <div class="input-field col s6">
+                                    <div class="switch">
+                                        <label>
+                                            No
+                                            <input id="auditHeadVerifiedswitch" type="checkbox" disabled>
+                                            <span class="lever"></span>
+                                            Yes
+                                        </label>
+                                        @Html.HiddenFor(model => model.AuditHeadVerified)
+                                    </div>
+                                </div>
+                            }
+                            @Html.HiddenFor(model => model.Status)
+                            <div class="input-field col s12"></div>
+                            <div class="input-field col s12"></div>
+                            <div id="vpgm" class="input-field col s12 scrollspy">
+                                <p><strong>VP/GM </strong></p>
+                            </div>
+                            @if (User.IsInRole("admin") || User.IsInRole("VP/GM Head"))
+                            {
+                                <div class="input-field col s12">
+                                    @Html.LabelFor(model => model.VPGMStatus, new { @class = "customlabel" })
+                                    <div class="col s6"></div>
+                                    <div class="col s3">
+                                        <label>
+                                            @Html.RadioButtonFor(model => model.VPGMStatus, "1", new { @class = "with-gap" })
+                                            <span>For Renewal</span>
+                                        </label>
+                                    </div>
+                                    <div class="col s3">
+                                        <label>
+                                            @Html.RadioButtonFor(model => model.VPGMStatus, "0", new { @class = "with-gap" })
+                                            <span>Hold</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.VPGMRemarks)
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.VPGMRemarks, new { @class = "validate", @required = "" })
+                                    @Html.ValidationMessageFor(model => model.VPGMRemarks, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.VPGMHeadVerified, new { @class = "customlabel" })
+                                </div>
+                                <div class="input-field col s6">
+                                    <div class="switch">
+                                        <label>
+                                            No
+                                            <input id="vPGMHeadVerifiedswitch" type="checkbox">
+                                            <span class="lever"></span>
+                                            Yes
+                                        </label>
+                                        @Html.HiddenFor(model => model.VPGMHeadVerified)
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="input-field col s12">
+                                    @Html.LabelFor(model => model.VPGMStatus, new { @class = "customlabel" })
+                                    <div class="col s6"></div>
+                                    <div class="col s3">
+                                        <label>
+                                            @Html.RadioButtonFor(model => model.VPGMStatus, "1", new { @class = "with-gap", @disabled = "disabled" })
+                                            <span>For Renewal</span>
+                                        </label>
+                                    </div>
+                                    <div class="col s3">
+                                        <label>
+                                            @Html.RadioButtonFor(model => model.VPGMStatus, "0", new { @class = "with-gap", @disabled = "disabled" })
+                                            <span>Hold</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.VPGMRemarks)
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.VPGMRemarks, new { @class = "validate", @required = "", @readOnly = "readOnly" })
+                                    @Html.ValidationMessageFor(model => model.VPGMRemarks, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.LabelFor(model => model.VPGMHeadVerified, new { @class = "customlabel" })
+                                </div>
+                                <div class="input-field col s6">
+                                    <div class="switch">
+                                        <label>
+                                            No
+                                            <input id="vPGMHeadVerifiedswitch" type="checkbox" disabled>
+                                            <span class="lever"></span>
+                                            Yes
+                                        </label>
+                                        @Html.HiddenFor(model => model.VPGMHeadVerified)
+                                    </div>
+                                </div>
+                            }
+                            @Html.HiddenFor(model => model.VPGMStatus)
+                            @Html.HiddenFor(model => model.ChecklistStatus)
+                            <span class="card-title">.</span>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="col s3">
+                    <div class="card" style="position:fixed">
+                        <div class="card-toolbar">
+                            <div class="card-toolbar-title">Progress (@Model.Progress%)</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="row row-vertical-center no-margin">
+                                <div class="progress blue lighten-4 tooltipped" data-position="top" data-tooltip="Progress was at 50% when tested">
+                                    <span>Progress</span>
+                                    <div class="determinate blue" style="width: @Model.Progress%; animation: grow 2s;">@Model.Progress%</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col s12 m6 l12">
+                            <div class="col hide-on-small-only m3 l2">
+                                <ul class="section table-of-contents">
+                                    <li><a href="#introduction">Introduction</a></li>
+                                    <li><a href="#leasing">Leasing</a></li>
+                                    <li><a href="#design">Design</a></li>
+                                    <li><a href="#operation">Operation</a></li>
+                                    <li><a href="#it">IT</a></li>
+                                    <li><a href="#finance">Finance</a></li>
+                                    <li><a href="#audit">Audit</a></li>
+                                    <li><a href="#vpgm">VPGM</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div class="fixed-action-btn">
+        <button class="btn-floating btn-large" type="submit" name="book">
+            <i class="material-icons right">save</i>
+        </button>
+    </div>
+}
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.scrollspy').scrollSpy();
+
+            $('.datepicker').datepicker({
+                format: 'mm-dd-yyyy',
+                minDate: new Date(),
+                yearRange: 1
+            });
+
+            if ($('#LeasingReviewDone').val() == 'True') {
+                $("#leasingReviewSwitch").prop("checked", true);
+            }
+            else {
+                $("#leasingReviewSwitch").prop("checked", false);
+            }
+
+            if ($('#LeasingHeadVerified').val() == 'True') {
+                $("#leasingHeadVerifiedswitch").prop("checked", true);
+            }
+            else {
+                $("#leasingHeadVerifiedswitch").prop("checked", false);
+            }
+
+            if ($('#DesignReviewDone').val() == 'True') {
+                $("#designReviewDoneswitch").prop("checked", true);
+            }
+            else {
+                $("#designReviewDoneswitch").prop("checked", false);
+            }
+
+            if ($('#DesignHeadVerified').val() == 'True') {
+                $("#designHeadVerifiedswitch").prop("checked", true);
+            }
+            else {
+                $("#designHeadVerifiedswitch").prop("checked", false);
+            }
+
+            if ($('#OperationFacilitiesReviewDone').val() == 'True') {
+                $("#operationFacilitiesReviewDoneswitch").prop("checked", true);
+            }
+            else {
+                $("#operationFacilitiesReviewDoneswitch").prop("checked", false);
+            }
+
+            if ($('#OperationsTenancyReviewDone').val() == 'True') {
+                $("#operationsTenancyReviewDoneswitch").prop("checked", true);
+            }
+            else {
+                $("#operationsTenancyReviewDoneswitch").prop("checked", false);
+            }
+
+            if ($('#OperationHouseKeepingReviewDone').val() == 'True') {
+                $("#operationHouseKeepingReviewDoneswitch").prop("checked", true);
+            }
+            else {
+                $("#operationHouseKeepingReviewDoneswitch").prop("checked", false);
+            }
+
+            if ($('#OperationSecurityReviewDone').val() == 'True') {
+                $("#operationSecurityReviewDoneswitch").prop("checked", true);
+            }
+            else {
+                $("#operationSecurityReviewDoneswitch").prop("checked", false);
+            }
+
+            if ($('#OperationsHeadVerified').val() == 'True') {
+                $("#operationsHeadVerifiedswitch").prop("checked", true);
+            }
+            else {
+                $("#operationsHeadVerifiedswitch").prop("checked", false);
+            }
+
+            if ($('#ITReviewDone').val() == 'True') {
+                $("#iTReviewDoneswitch").prop("checked", true);
+            }
+            else {
+                $("#iTReviewDoneswitch").prop("checked", false);
+            }
+
+            if ($('#ITHeadVerified').val() == 'True') {
+                $("#iTHeadVerifiedswitch").prop("checked", true);
+            }
+            else {
+                $("#iTHeadVerifiedswitch").prop("checked", false);
+            }
+
+            if ($('#FinanceReviewDone').val() == 'True') {
+                $("#financeReviewDoneswitch").prop("checked", true);
+            }
+            else {
+                $("#financeReviewDoneswitch").prop("checked", false);
+            }
+
+            if ($('#FinanceHeadVerified').val() == 'True') {
+                $("#financeHeadVerifiedswitch").prop("checked", true);
+            }
+            else {
+                $("#financeHeadVerifiedswitch").prop("checked", false);
+            }
+
+            if ($('#AuditReviewDone').val() == 'True') {
+                $("#auditReviewDoneswitch").prop("checked", true);
+            }
+            else {
+                $("#auditReviewDoneswitch").prop("checked", false);
+            }
+
+            if ($('#AuditHeadVerified').val() == 'True') {
+                $("#auditHeadVerifiedswitch").prop("checked", true);
+            }
+            else {
+                $("#auditHeadVerifiedswitch").prop("checked", false);
+            }
+
+            if ($('#VPGMHeadVerified').val() == 'True') {
+                $("#vPGMHeadVerifiedswitch").prop("checked", true);
+            }
+            else {
+                $("#vPGMHeadVerifiedswitch").prop("checked", false);
+            }
+
+            if ($('#Status').val() == 'True') {
+                $("#statusswitch").prop("checked", true);
+            }
+            else {
+                $("#statusswitch").prop("checked", false);
+            }
+
+            if ($('#ForMajorRenovation').val() == 'True') {
+                $("#forMajorRenovationswitch").prop("checked", true);
+            }
+            else {
+                $("#forMajorRenovationswitch").prop("checked", false);
+            }
+
+        });
+
+        $('#leasingReviewSwitch').change(function () {
+            if (this.checked) {
+                $('#LeasingReviewDone').val('true');
+            } else {
+                $('#LeasingReviewDone').val('false');
+            }
+        });
+
+        $('#leasingHeadVerifiedswitch').change(function () {
+            if (this.checked) {
+                $('#LeasingHeadVerified').val('true');
+            } else {
+                $('#LeasingHeadVerified').val('false');
+            }
+        });
+
+        $('#designReviewDoneswitch').change(function () {
+            if (this.checked) {
+                $('#DesignReviewDone').val('true');
+            } else {
+                $('#DesignReviewDone').val('false');
+            }
+        });
+
+        $('#designHeadVerifiedswitch').change(function () {
+            if (this.checked) {
+                $('#DesignHeadVerified').val('true');
+            } else {
+                $('#DesignHeadVerified').val('false');
+            }
+        });
+
+        $('#operationFacilitiesReviewDoneswitch').change(function () {
+            if (this.checked) {
+                $('#OperationFacilitiesReviewDone').val('true');
+            } else {
+                $('#OperationFacilitiesReviewDone').val('false');
+            }
+        });
+
+        $('#operationsTenancyReviewDoneswitch').change(function () {
+            if (this.checked) {
+                $('#OperationsTenancyReviewDone').val('true');
+            } else {
+                $('#OperationsTenancyReviewDone').val('false');
+            }
+        });
+
+        $('#operationHouseKeepingReviewDoneswitch').change(function () {
+            if (this.checked) {
+                $('#OperationHouseKeepingReviewDone').val('true');
+            } else {
+                $('#OperationHouseKeepingReviewDone').val('false');
+            }
+        });
+
+        $('#operationSecurityReviewDoneswitch').change(function () {
+            if (this.checked) {
+                $('#OperationSecurityReviewDone').val('true');
+            } else {
+                $('#OperationSecurityReviewDone').val('false');
+            }
+        });
+
+        $('#operationsHeadVerifiedswitch').change(function () {
+            if (this.checked) {
+                $('#OperationsHeadVerified').val('true');
+            } else {
+                $('#OperationsHeadVerified').val('false');
+            }
+        });
+
+        $('#iTReviewDoneswitch').change(function () {
+            if (this.checked) {
+                $('#ITReviewDone').val('true');
+            } else {
+                $('#ITReviewDone').val('false');
+            }
+        });
+
+        $('#iTHeadVerifiedswitch').change(function () {
+            if (this.checked) {
+                $('#ITHeadVerified').val('true');
+            } else {
+                $('#ITHeadVerified').val('false');
+            }
+        });
+
+        $('#financeReviewDoneswitch').change(function () {
+            if (this.checked) {
+                $('#FinanceReviewDone').val('true');
+            } else {
+                $('#FinanceReviewDone').val('false');
+            }
+        });
+
+        $('#financeHeadVerifiedswitch').change(function () {
+            if (this.checked) {
+                $('#FinanceHeadVerified').val('true');
+            } else {
+                $('#FinanceHeadVerified').val('false');
+            }
+        });
+
+        $('#auditReviewDoneswitch').change(function () {
+            if (this.checked) {
+                $('#AuditReviewDone').val('true');
+            } else {
+                $('#AuditReviewDone').val('false');
+            }
+        });
+
+        $('#auditHeadVerifiedswitch').change(function () {
+            if (this.checked) {
+                $('#AuditHeadVerified').val('true');
+            } else {
+                $('#AuditHeadVerified').val('false');
+            }
+        });
+
+        $('#vPGMHeadVerifiedswitch').change(function () {
+            if (this.checked) {
+                $('#VPGMHeadVerified').val('true');
+            } else {
+                $('#VPGMHeadVerified').val('false');
+            }
+        });
+
+        $('#statusswitch').change(function () {
+            if (this.checked) {
+                $('#Status').val('true');
+            } else {
+                $('#Status').val('false');
+            }
+        });
+
+        $('#forMajorRenovationswitch').change(function () {
+            if (this.checked) {
+                $('#ForMajorRenovation').val('true');
+            } else {
+                $('#ForMajorRenovation').val('false');
+            }
+        });
+
+        $("input[type='hidden']").each(function (index, element) {
+            $(this).appendTo($(element).parent());
+        });
+    </script>
+}

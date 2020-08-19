@@ -1,0 +1,119 @@
+﻿@model WebUI.Models.ScheduleModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <main>
+        <div class="container">
+            <div class="row">
+                <div id="tabs" class="col s12 m12">
+                    <ul class="tabs card">
+                        <li class="tab col s6">
+                            @if (Model.ResType.ToLower().Equals("ot"))
+                            {<a id="ot" class="active" href="#overtime">Overtime</a>}
+                            else
+                            {<a id="ot" href="#overtime">Overtime</a>}
+                        </li>
+                        <li class="tab col s6">
+                            @if (Model.ResType.ToLower().Equals("bs"))
+                            {<a id="bs" class="active" href="#business">Business</a> }
+                            else
+                            {<a id="bs" href="#business">Business</a>}
+                        </li>
+                    </ul>
+                </div>
+                <div id="overtime">
+                    @{Html.RenderPartial("_scheduleDashboard");
+                    }
+                </div>
+                <div id="business">
+                    @{Html.RenderPartial("_scheduleBusinessDashboard");
+                    }
+                </div>
+                <div class="col s12 m8">
+                    <div class="card">
+                        <div class="card-content">
+                            @if (Model.IsReadOnly.Equals(true))
+                            {
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.ScheduleTrip, "{0:MM-dd-yyyy}", new { @readonly = "readonly" })
+                                    @Html.LabelFor(model => model.ScheduleTrip)
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.DropDownListFor(model => model.TimeSlotSelectedId, new SelectList(Model.TimeSlots, "Id", "Name"), new { @disabled = "disabled" })
+                                    @Html.LabelFor(model => model.TimeSlots)
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.DropDownListFor(model => model.PickUpSelectedId, new SelectList(Model.PickUps, "Id", "Name"), new { @disabled = "disabled" })
+                                    @Html.LabelFor(model => model.PickUps)
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.DropDownListFor(model => model.DropOffSelectedId, new SelectList(Model.DropOffs, "Id", "Name"), new { @disabled = "disabled" })
+                                    @Html.LabelFor(model => model.DropOffs)
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="input-field col s6">
+                                    @Html.TextBoxFor(model => model.ScheduleTrip, "{0:MM-dd-yyyy}", new { @class = "datepicker validate", @required = "You must provide a reservation date" })
+                                    @Html.LabelFor(model => model.ScheduleTrip)
+                                </div>
+
+                                <div class="input-field col s6">
+                                    @Html.DropDownListFor(model => model.TimeSlotSelectedId, new SelectList(Model.TimeSlots, "Id", "Name"))
+                                    @Html.LabelFor(model => model.TimeSlots)
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.DropDownListFor(model => model.PickUpSelectedId, new SelectList(Model.PickUps, "Id", "Name"))
+                                    @Html.LabelFor(model => model.PickUps)
+                                </div>
+                                <div class="input-field col s6">
+                                    @Html.DropDownListFor(model => model.DropOffSelectedId, new SelectList(Model.DropOffs, "Id", "Name"), new { @class = "form-control" })
+                                    @Html.LabelFor(model => model.DropOffs)
+                                </div>
+                            }
+                            <div class="input-field col s6">
+                                @Html.DropDownListFor(model => model.ShuttleSelectedId, new SelectList(Model.Shuttles, "Id", "Name"), new { @class = "form-control" })
+                                @Html.LabelFor(model => model.Shuttles)
+                            </div>
+                            <div class="input-field col s6">
+                                @Html.DropDownListFor(model => model.DriverSelectedId, new SelectList(Model.Drivers, "Id", "Name"), new { @class = "form-control" })
+                                @Html.LabelFor(model => model.Drivers)
+                            </div>
+                            <div class="right-align">
+                                <button class="btn waves-effect waves-light" type="submit" name="">
+                                    Update
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @Html.HiddenFor(Model => Model.Id)
+        @Html.HiddenFor(model => model.IsReadOnly)
+        @Html.HiddenFor(model => model.TimeSlotSelectedId)
+        @Html.HiddenFor(model => model.PickUpSelectedId)
+        @Html.HiddenFor(model => model.DropOffSelectedId)
+        @Html.HiddenFor(model => model.ResType
+   )
+    </main>
+}
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.datepicker').datepicker({
+                format: 'mm-dd-yyyy',
+                minDate: new Date(),
+                yearRange: 1
+            });
+        });
+    </script>
+}

@@ -1,0 +1,12 @@
+C:\Users\edgarm\source\repos\OSBS\DomainObject\bin\Debug\DomainObject.dll
+C:\Users\edgarm\source\repos\OSBS\DomainObject\bin\Debug\DomainObject.pdb
+C:\Users\edgarm\source\repos\OSBS\DomainObject\obj\Debug\OSBS.DomainObject.csproj.CoreCompileInputs.cache
+C:\Users\edgarm\source\repos\OSBS\DomainObject\obj\Debug\DomainObject.dll
+C:\Users\edgarm\source\repos\OSBS\DomainObject\obj\Debug\DomainObject.pdb
+C:\Users\edgarm\source\repos\OSBS\DomainObject\obj\Debug\OSBS.DomainObject.csprojAssemblyReference.cache
+C:\Users\edgarm\source\repos\OSBS - Copy (4)\DomainObject\bin\Debug\DomainObject.dll
+C:\Users\edgarm\source\repos\OSBS - Copy (4)\DomainObject\bin\Debug\DomainObject.pdb
+C:\Users\edgarm\source\repos\OSBS - Copy (4)\DomainObject\obj\Debug\OSBS.DomainObject.csprojAssemblyReference.cache
+C:\Users\edgarm\source\repos\OSBS - Copy (4)\DomainObject\obj\Debug\OSBS.DomainObject.csproj.CoreCompileInputs.cache
+C:\Users\edgarm\source\repos\OSBS - Copy (4)\DomainObject\obj\Debug\DomainObject.dll
+C:\Users\edgarm\source\repos\OSBS - Copy (4)\DomainObject\obj\Debug\DomainObject.pdb

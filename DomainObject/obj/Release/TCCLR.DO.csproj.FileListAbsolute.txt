@@ -1,0 +1,5 @@
+C:\Users\edgarm\source\repos\OSBS - Copy (4)\DomainObject\bin\Release\DomainObject.dll
+C:\Users\edgarm\source\repos\OSBS - Copy (4)\DomainObject\bin\Release\DomainObject.pdb
+C:\Users\edgarm\source\repos\OSBS - Copy (4)\DomainObject\obj\Release\TCCLR.DO.csproj.CoreCompileInputs.cache
+C:\Users\edgarm\source\repos\OSBS - Copy (4)\DomainObject\obj\Release\DomainObject.dll
+C:\Users\edgarm\source\repos\OSBS - Copy (4)\DomainObject\obj\Release\DomainObject.pdb

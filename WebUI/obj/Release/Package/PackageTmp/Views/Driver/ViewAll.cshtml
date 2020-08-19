@@ -1,0 +1,77 @@
+﻿@model IEnumerable<WebUI.Models.DriverModel>
+
+@{
+    ViewBag.Title = "Driver List";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col s12">
+            <div class="card">
+                <table id="table-custom-elements" class="row-border" cellspacing="0" width="100">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Name</th>
+                            <th>User Name</th>
+                            <th>Phone Number</th>
+                            <th>Address</th>
+                            <th>License Expiry</th>
+                            <th>Status</th>
+                            <th>Edit</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="fixed-action-btn">
+        <a href="@Url.Action("Add", "Driver")" class="btn-floating btn-large">
+            <i class="large material-icons">add</i>
+        </a>
+    </div>
+</div>
+
+@section Scripts {
+
+
+    <script>
+
+        $(document).ready(function () {
+            var data = [@Html.Raw(@TempData["reseveList"])];
+            var tableCustomElements = $('#table-custom-elements');
+            if (tableCustomElements.length) {
+                var table = tableCustomElements.DataTable({
+                    'data': data,
+                    'columnDefs': [{
+                    'targets': 0,
+                    'searchable': false,
+                    'orderable': false,
+                    'className': 'dataTables-checkbox-column',
+                    'render': function (data, type, full, meta) {
+                        return '<hidden name="id[]" value="'
+                            + $('<div/>').text(data).html() + '">';
+                    }
+                    }],
+                    'language': {
+                        'search': '',
+                        'searchPlaceholder': 'Enter search term'
+                    },
+                    'order': [1, 'asc'],
+                    'dom': 'ft<"footer-wrapper"l<"paging-info"ip>>',
+                    'scrollY': '500px',
+                    'scrollCollapse': true,
+                    'pagingType': 'full',
+                    'drawCallback': function (settings) {
+                        var api = this.api();
+                        // Add waves to pagination buttons
+                        $(api.table().container()).find('.paginate_button').addClass('waves-effect');
+                        api.table().columns.adjust();
+                    }
+                });
+            }
+        });
+    </script>
+    <script src="~/Scripts/Materialize/page-scripts/DataTables.js"></script>
+}

@@ -1,0 +1,40 @@
+﻿@model IEnumerable<WebUI.Models.BookingModel>
+
+@{
+    /**/
+
+    ViewBag.Title = "Booking History";
+}
+
+<div class="container">
+    <div class="timeline">
+        @foreach (var book in Model)
+        {
+            <div class="timeline-event">
+                <div class="card timeline-content">
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-4">@book.TimeSlot (@book.Status)</span>
+                        <p>@book.Route</p>
+                        @if (book.PlateNo.ToLower() != "n/a")
+                        {
+                            <p>@book.PlateNo</p>
+                            <p>@book.DriverName</p>
+                        }
+                    </div>
+                </div>
+                @if (book.Status.ToLower() == "cancel")
+                {
+                    <div class="timeline-badge red-text"><i class="material-icons">drive_eta</i></div>
+                }
+                else if (book.Status.ToLower() == "noshow")
+                {
+                    <div class="timeline-badge yellow-text"><i class="material-icons">drive_eta</i></div>
+                }
+                else
+                {
+                    <div class="timeline-badge green-text"><i class="material-icons">drive_eta</i></div>
+                }
+            </div>
+        }
+    </div>
+</div>

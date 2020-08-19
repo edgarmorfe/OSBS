@@ -1,0 +1,232 @@
+﻿@using WebUI.Attributes
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="description" content="">
+    <title>Rockwell | Online Shuttle Reservation</title>
+
+    <link href="~/Content/themes/Materialize/datatables.min.css" rel="stylesheet" />
+    <link href="~/Content/themes/Materialize/admin-materialize.min.css" rel="stylesheet" />
+    <link href="~/Content/themes/Materialize/jqvmap.css" rel="stylesheet" />
+    <link href="~/Content/themes/Materialize/flag-icon.min.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+
+    <!-- Fullcalendar-->
+    <link href="~/Content/themes/Materialize/fullcalendar.min.css" rel="stylesheet" />
+    <!-- Material Icons-->
+    <link href="~/Content/themes/Materialize/icon.css" rel="stylesheet" />
+
+</head>
+<body class="has-fixed-sidenav">
+    <header>
+        <ul id="sidenav-left" class="sidenav sidenav-fixed grey lighten-4">
+            <li class="brand grey lighten-4">
+                <img src="~/Content/themes/base/images/rockwell-logo-small.png" style="display:inline-block;margin-bottom:-2px" /> APPS
+                <span class="subtitle">Tenant Contract<br />CLR</span>
+            </li>
+            <li class="card grey lighten-4">
+                <div class="user-view">
+                    <img src="@UserInfo.ProfilePic" class="circle" />
+                    <span class="name truncate"><b>@UserInfo.FullName</b></span>
+                    <span class="email truncate">@UserInfo.EmailAddress</span>
+                </div>
+            </li>
+            <li class="no-padding">
+                <ul class="collapsible collapsible-accordion">
+
+                    <li class="bold waves-effect active">
+                        <ul>
+                            <li><a href=@Url.Action("all", "tenantrenewal", new { filter = "all"}) class="waves-effect">Tenant<i class="material-icons">store</i></a></li>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <li><a href=@Url.Action("all", "userrole") class="waves-effect">User Role<i class="material-icons">supervisor_account</i></a></li>
+                            }
+                        </ul>
+                    </li>
+
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li class="waves-effect active">
+                            <ul>
+                                <li><a href="#" class="bold waves-effect">Check List Status</a></li>
+                                <li><a href=@Url.Action("all", "tenantrenewal", new { filter = "On Progress"}) class="waves-effect">On Progress <span id="onprogressCount" class=""></span><i class="material-icons">opacity</i></a></li>
+                                <li><a href=@Url.Action("all", "tenantrenewal", new { filter = "Completed"}) class="waves-effect">Completed <span id="completedCount" class=""></span><i class="material-icons">offline_pin</i></a></li>
+                                <li><a href=@Url.Action("all", "tenantrenewal", new { filter = "On Hold"}) class="waves-effect">On Hold <span id="onholdCount" class=""></span><i class="material-icons">pause_circle_outline</i></a></li>
+                                <li><a href=@Url.Action("all", "tenantrenewal", new { filter = "Delayed"}) class="waves-effect">Delayed <span id="delayedCount" class=""></span><i class="material-icons">rotate_right</i></a></li>
+                            </ul>
+                        </li>
+                    }
+                    @*@if (User.IsInRole("Admin"))
+                        {
+                            <li class="bold waves-effect active">
+                                <ul>
+                                    <li><a href=@Url.Action("ViewAll", "Driver") class="waves-effect">Driver<i class="material-icons">airline_seat_recline_normal</i></a></li>
+                                </ul>
+                            </li>
+                        }
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="bold waves-effect">
+                                <ul>
+                                    <li><a href="@Url.Action("Add", "Schedule", new { selectedTime = "18:00:00", pickUpId = 0, dropOff ="", resId=0, resType="ot"})" class="waves-effect">Schedule<span id="reserveCount" class=""></span><i class="material-icons">assignment</i></a></li>
+                                </ul>
+                            </li>
+                        }
+                        @if (User.IsInRole("Employee"))
+                        {
+                            <li class="bold waves-effect">
+                                <ul>
+                                    <li><a href="@Url.Action("History", "Reservation")" class="waves-effect">History<i class="material-icons">history</i></a></li>
+                                </ul>
+                            </li>
+                        }
+                        @if (User.IsInRole("Employee"))
+                        {
+                            <li class="bold waves-effect">
+                                <ul>
+                                    <li>
+                                        <a href=@Url.Action("Approval", "Reservation") class="waves-effect">
+                                            Approval
+                                            <span id="approvalCount" class=""></span><i class="material-icons">assignment_turned_in</i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        }
+
+                        @if (User.IsInRole("Treasury"))
+                        {
+                            <li class="bold waves-effect">
+                                <ul>
+                                    <li><a href=@Url.Action("AddMoney", "Transaction") class="waves-effect">Treasury<i class="material-icons">account_balance_wallet</i></a></li>
+
+                                </ul>
+                            </li>
+                        }*@
+                </ul>
+            </li>
+        </ul>
+
+        <div class="navbar-fixed">
+            <nav class="navbar nav-extended no-padding">
+                <div class="nav-wrapper">
+                    <a href="#" class="brand-logo">@ViewBag.Title</a>
+                    <ul id="nav-mobile" class="right">
+                        <li><span id="userBal"></span></li>
+                        <li><a href="#" data-target="backtoportal-dropdown" class="dropdown-trigger waves-effect"><i class="material-icons left solo-sl"><img src="@UserInfo.ProfilePic" class="circle" /></i><span class="hide-on-small-only">@UserInfo.FirstName</span></a></li>
+                    </ul>
+                    <a href="#!" data-target="sidenav-left" class="sidenav-trigger left"><i class="material-icons gold-color">menu</i></a>
+                </div>
+            </nav>
+        </div>
+        <div id="backtoportal-dropdown" class="dropdown-content dropdown-tabbed">
+            <ul>
+                <li class="tab col s3"><a href=@Url.Action("Logout", "Account")>Back to Portal</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Modal Structure -->
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <h4><i class="material-icons red-text small">error</i> Error</h4>
+            <p>@TempData["error"]</p>
+        </div>
+    </div>
+    @RenderBody()
+    <!-- Scripts -->
+    <script src="~/Scripts/Materialize/jquery.min.js"></script>
+    <script src="~/Scripts/Materialize/materialize.min.js"></script>
+    <script src="~/Scripts/Materialize/moment.min.js"></script>
+    <!-- External libraries -->
+    <!-- jqvmap -->
+    <script src="~/Scripts/Materialize/jqvmap/jquery.vmap.min.js"></script>
+    <script src="~/Scripts/Materialize/jqvmap/jquery.vmap.sampledata.js"></script>
+    <script src="~/Scripts/Materialize/jqvmap/jquery.vmap.world.js"></script>
+    <!-- ChartJS -->
+    <script src="~/Scripts/Materialize/Chart.js"></script>
+    <script src="~/Scripts/Materialize/Chart.Financial.js"></script>
+    <script src="~/Scripts/Materialize/fullcalendar.min.js"></script>
+    <script src="~/Scripts/Materialize/datatables.min.js"></script>
+    <script src="~/Scripts/Materialize/imagesloaded.pkgd.min.js"></script>
+    <script src="~/Scripts/Materialize/masonry.pkgd.min.js"></script>
+
+    <!-- Initialization script -->
+    <script src="~/Scripts/Materialize/admin.js"></script>
+    <script src="~/Scripts/Materialize/page-scripts/dashboard.js"></script>
+    <script src="~/Scripts/Materialize/init.js"></script>
+
+    @*<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">*@
+    @*<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>*@
+
+    <script>
+        $(document).ready(function () {
+            if ('@TempData["message"]' != "") {
+                M.toast({ html: '@TempData["message"]', outDuration: 10000 })
+            }
+
+            if ('@TempData["error"]' != "") {
+                $('#modal1').modal();
+                $('#modal1').modal('open');
+                $('.trigger-modal').modal();
+            }
+
+            $.ajax({
+                url: "/TenantRenewal/GetTenantRenewalByCheckListStatusCount",
+                type: "GET",
+                dataType: "json",
+                success: function (data) {
+                    if (data > 0) {
+                        $('#onprogressCount').text(data);
+                        $('#onprogressCount').addClass("badge badge pill red float-right mr-10");
+                    }
+                }
+            });
+
+
+            $.ajax({
+                url: "/TenantRenewal/GetTenantRenewalByCheckListStatusOnHoldCount",
+                type: "GET",
+                dataType: "json",
+                success: function (data) {
+                    if (data > 0) {
+                        $('#onholdCount').text(data);
+                        $('#onholdCount').addClass("badge badge pill red float-right mr-10");
+                    }
+                }
+            });
+
+            $.ajax({
+                url: "/TenantRenewal/GetTenantRenewalByCheckListStatusCompletedCount",
+                type: "GET",
+                dataType: "json",
+                success: function (data) {
+                    if (data > 0) {
+                        $('#completedCount').text(data);
+                        $('#completedCount').addClass("badge badge pill red float-right mr-10");
+                    }
+                }
+            });
+
+            $.ajax({
+                url: "/TenantRenewal/GetTenantRenewalByCheckListStatusDelayedCount",
+                type: "GET",
+                dataType: "json",
+                success: function (data) {
+                    if (data > 0) {
+                        $('#delayedCount').text(data);
+                        $('#delayedCount').addClass("badge badge pill red float-right mr-10");
+                    }
+                }
+            });
+
+        });
+    </script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

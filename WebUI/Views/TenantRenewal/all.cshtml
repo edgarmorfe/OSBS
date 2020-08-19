@@ -1,0 +1,76 @@
+﻿@model IEnumerable<WebUI.Models.TenantRenewalView>
+
+@{
+    ViewBag.Title = "View All Tenants";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col s12">
+            <div class="card">
+                <table id="table-custom-elements" class="row-border" cellspacing="0" width="100">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Tenant Id</th>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Category Specialist</th>
+                            <th>Expiry</th>
+                            <th>Status</th>
+                            <th>Edit</th>
+                            <th>Form</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="fixed-action-btn">
+        <a href="@Url.Action("Add", "TenantRenewal")" class="btn-floating btn-large">
+            <i class="large material-icons">add</i>
+        </a>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+
+        $(document).ready(function () {
+            var data = [@Html.Raw(@TempData["reseveList"])];
+            var tableCustomElements = $('#table-custom-elements');
+            if (tableCustomElements.length) {
+                var table = tableCustomElements.DataTable({
+                    'data': data,
+                    'columnDefs': [{
+                        'targets': 0,
+                        'searching': true,
+                        'orderable': false,
+                        'className': 'dataTables-checkbox-column',
+                        'render': function (data, type, full, meta) {
+                            return '<label><hidden name="id[]" value="'
+                                + $('<div/>').text(data).html() + '"><span></span></label>';
+                        }
+                    }],
+                    'language': {
+                        'search': '',
+                        'searchPlaceholder': 'Enter search term'
+                    },
+                    'order': [1, 'asc'],
+                    'dom': 'ft<"footer-wrapper"l<"paging-info"ip>>',
+                    'scrollY': '500px',
+                    'scrollCollapse': true,
+                    'pagingType': 'full',
+                    'drawCallback': function (settings) {
+                        var api = this.api();
+                        // Add waves to pagination buttons
+                        $(api.table().container()).find('.paginate_button').addClass('waves-effect');
+                        api.table().columns.adjust();
+                    }
+                });
+            }
+    });
+    </script>
+}
+

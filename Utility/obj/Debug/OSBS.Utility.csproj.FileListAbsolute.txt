@@ -1,0 +1,12 @@
+C:\Users\edgarm\source\repos\OSBS\Utility\bin\Debug\Utility.dll
+C:\Users\edgarm\source\repos\OSBS\Utility\bin\Debug\Utility.pdb
+C:\Users\edgarm\source\repos\OSBS\Utility\obj\Debug\OSBS.Utility.csproj.CoreCompileInputs.cache
+C:\Users\edgarm\source\repos\OSBS\Utility\obj\Debug\Utility.dll
+C:\Users\edgarm\source\repos\OSBS\Utility\obj\Debug\Utility.pdb
+C:\Users\edgarm\source\repos\OSBS\Utility\obj\Debug\OSBS.Utility.csprojAssemblyReference.cache
+C:\Users\edgarm\source\repos\OSBS - Copy (4)\Utility\bin\Debug\Utility.dll
+C:\Users\edgarm\source\repos\OSBS - Copy (4)\Utility\bin\Debug\Utility.pdb
+C:\Users\edgarm\source\repos\OSBS - Copy (4)\Utility\obj\Debug\OSBS.Utility.csprojAssemblyReference.cache
+C:\Users\edgarm\source\repos\OSBS - Copy (4)\Utility\obj\Debug\OSBS.Utility.csproj.CoreCompileInputs.cache
+C:\Users\edgarm\source\repos\OSBS - Copy (4)\Utility\obj\Debug\Utility.dll
+C:\Users\edgarm\source\repos\OSBS - Copy (4)\Utility\obj\Debug\Utility.pdb

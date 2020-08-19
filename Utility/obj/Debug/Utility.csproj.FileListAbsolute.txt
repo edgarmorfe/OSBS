@@ -1,0 +1,6 @@
+C:\Users\edgarm\source\repos\OSBS\Utility\bin\Debug\Utility.dll
+C:\Users\edgarm\source\repos\OSBS\Utility\bin\Debug\Utility.pdb
+C:\Users\edgarm\source\repos\OSBS\Utility\obj\Debug\Utility.csprojAssemblyReference.cache
+C:\Users\edgarm\source\repos\OSBS\Utility\obj\Debug\Utility.csproj.CoreCompileInputs.cache
+C:\Users\edgarm\source\repos\OSBS\Utility\obj\Debug\Utility.dll
+C:\Users\edgarm\source\repos\OSBS\Utility\obj\Debug\Utility.pdb

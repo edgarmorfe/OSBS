@@ -1,0 +1,128 @@
+﻿@model  WebUI.Models.OTReservationViewModel
+
+@{
+    ViewBag.Title = "View Passengers";
+}
+@using (Html.BeginForm())
+{
+    <main>
+        <div class="container">
+            <div class="row">
+                <div class="col s12 m4">
+                    <div class="card">
+                        <div class="card-content">
+                            @if (Model.Id > 0)
+                            {
+                                <span class="card-title">@Model.ScheduledTrip.ToShortTimeString() (@Model.Passengers.Count().ToString())</span>
+                            }
+                            else
+                            {
+                                <span class="card-title">No Scheduled Trip</span>
+                            }
+                            @if (Model.Id > 0)
+                            {
+                                <p>
+                                    @Model.PickUp - @Model.DropOff
+                                </p>
+                            }
+                            <ul>
+                                <li class="collection-item">
+                                    <div class="">
+                                        @if (Model.Id > 0 && Model.SSDStatus == "Assigned")
+                                        {
+                                            @Html.ActionLink(
+                                            "Arrive",
+                                            "DriverArrival",
+                                            "Reservation",
+                                            new { Model.DriverId, Model.ScheduledTrip, Model.SSDID, Model.Id},
+                                            new { @class = "btn waves-effect waves-light" })
+                                        }
+                                        else if (Model.Id > 0 && Model.SSDStatus == "Arrived")
+                                        {
+                                            <button class="btn waves-effect waves-light" type="submit" name="">
+                                                Take Off
+                                            </button>
+                                        }
+                                        else if (Model.Id > 0 && Model.SSDStatus == "InRoute")
+                                        {
+                                            <button class="btn waves-effect waves-light" type="submit" name="">
+                                                Drop Off
+                                            </button>
+                                        }
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 m8">
+                    <ul class="card collection">
+                        @if (Model.Passengers.Count().Equals(0))
+                        {
+                            <li class="collection-item avatar">
+                                <span class="title">No Passenger Yet</span>
+                            </li>
+                        }
+                        else
+                        {
+                            foreach (var pass in Model.Passengers)
+                            {
+                                <li class="collection-item avatar">
+                                    @if (pass.Status.ToLower() == "onboard" || pass.Status.ToLower() == "inroute")
+                                    {
+                                        <div class="badged-circle online">
+                                            <img src="@pass.ProfilePicPath" class="circle" />
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="badged-circle">
+                                            <img src="@pass.ProfilePicPath" class="circle" />
+                                        </div>
+                                    }
+                                    <span class="title">@pass.FullName</span>
+                                    <p>
+                                        @pass.DropOff
+                                    </p>
+                                    @if (pass.Status.ToLower() == "assigned")
+                                    {
+                                        @Html.ActionLink(
+                                                         "On Board",
+                                                         "OnBoard", //controller action
+                                                         "Reservation", //controller
+                                                         new { pass.Id }, // action parameters aka route values
+                                                         new { @class = "btn waves-effect waves-light secondary-content" });
+                                    }
+                                    else if (pass.Status.ToLower() == "onboard")
+                                    {
+                                        @Html.ActionLink(
+                                                        "Off Board",
+                                                        "OffBoard", // controller action
+                                                        "Reservation", // controller
+                                                        new { pass.Id }, // action parameters aka route values
+                                                        new { @class = "btn waves-effect waves-light secondary-content" });
+                                    }
+                                    else if (pass.Status.ToLower() == "inroute")
+                                    {
+                                        @Html.ActionLink(
+                                                       "Drop Off",
+                                                       "DropOff", // controller action
+                                                       "Reservation", // controller
+                                                       new { pass.Id }, // action parameters aka route values
+                                                       new { @class = "btn waves-effect waves-light secondary-content" });
+                                    }
+
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+        @Html.HiddenFor(model => model.DriverId)
+        @Html.HiddenFor(model => model.ScheduledTrip)
+        @Html.HiddenFor(model => model.SSDID)
+        @Html.HiddenFor(model => model.SSDStatus)
+    </main>
+}

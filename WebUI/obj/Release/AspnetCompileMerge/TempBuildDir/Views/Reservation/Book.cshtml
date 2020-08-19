@@ -1,0 +1,186 @@
+﻿@model WebUI.Models.OTReservationNewModel
+
+@{
+    ViewBag.Title = "Book";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <main>
+        <div class="container">
+            <div class="row">
+
+                @*<div id="tabs" class="col s12 m12">
+                    <ul class="tabs card">
+                        <li class="tab col s6">
+                            <a id="ot" class="active" href="#overtime">Overtime</a>
+                        </li>
+                        <li class="tab col s6">
+                            <a id="bs" class="" href="#business">Business</a>}
+                        </li>
+                    </ul>
+                </div>*@
+
+                <div id="overtime">
+
+                    <div class="col s12 m8">
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="input-field col s6">
+                                    @*@Html.TextBoxFor(model => model.ReservationDate, "{0:MM-dd-yyyy}", new { @class = "datepicker validate", @required = "You must provide a reservation date" })
+                        @Html.LabelFor(model => model.ReservationDate)
+                        @Html.ValidationMessageFor(model => model.ReservationDate, "")*@
+                                </div>
+
+                                <div class="input-field col s6">
+                                    @*@Html.DropDownListFor(model => model.TimeSlotSelectedId, new SelectList(Model.TimeSlots, "Id", "Name"))
+                        @Html.LabelFor(model => model.TimeSlots)
+                        @Html.ValidationMessageFor(model => model.TimeSlotSelectedId, "", new { @class = "text-danger" })*@
+                                </div>
+                                <div class="input-field col s6">
+                                    @*@Html.DropDownListFor(model => model.PickUpSelectedId, new SelectList(Model.PickUps, "Id", "Name"))
+                        @Html.LabelFor(model => model.PickUps)
+                        @Html.ValidationMessageFor(model => model.PickUpSelectedId, "")*@
+                                </div>
+
+                                <div class="input-field col s6">
+                                    @*@Html.TextBoxFor(model => model.DropOffSelectedId, new { @class = "autocomplete", @required = "You must provide a drop off" })
+                        @Html.LabelFor(model => model.DropOffs)*@
+                                </div>
+                                <div class="input-field col s12">
+                                    @*@Html.TextBoxFor(model => model.Comment, new { @class = "materialize-textarea" })
+                        @Html.LabelFor(model => model.Comment)
+                        @Html.ValidationMessageFor(model => model.Comment, "")*@
+                                </div>
+                                <div class="right-align">
+                                    <button class="btn waves-effect waves-light" type="submit" name="Book">
+                                        Book
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col s12 m4">
+                        <div>
+                            <div class="card">
+                                <div class="card-content">
+                                    <span class="card-title">No Booking Today<i class="material-icons right">access_time</i></span>
+                                    <p>
+                                        You can book now!
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        @Html.HiddenFor(model => model.BusinessBook.TripType)
+        @Html.HiddenFor(model => model.BookingType)
+    </main>
+}
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.datepicker').datepicker({
+                format: 'mm-dd-yyyy',
+                minDate: new Date(),
+                yearRange: 1,
+                disableWeekends: true,
+                disableDayFn: (date) => {
+                    return date.toString() == (new Date(2019, 19, 12)).toString() || date.toString() == (new Date(2019, 25, 12)).toString();
+                },
+                autoClose: true,
+                setDefaultDate: true
+            });
+
+            $('.timepicker').timepicker({
+                autoClose: true,
+                vibrate: true
+            });
+
+            $('#roundTrip').on('click', function () {
+                $("#BusinessBook_ReturnPickUpDate").prop('required', true);
+                $("#BusinessBook_ReturnPickUpTime").prop('required', true);
+                $('#BusinessBook_TripType').val('2');
+                $('#returnDate').show();
+                $('#returnTime').show();
+            });
+
+            $('#oneWay').on('click', function () {
+                $("#BusinessBook_ReturnPickUpDate").prop('required', false);
+                $("#BusinessBook_ReturnPickUpTime").prop('required', false);
+                $('#BusinessBook_TripType').val('1');
+                $('#returnDate').hide();
+                $('#returnTime').hide();
+            });
+
+            $('#tabs #ot').on('click', function (e) {
+                $('#BookingType').val('ot');
+                $("#DropOffSelectedId").prop('required', true);
+
+                $("#BusinessBook_PickUpDate").prop('required', false);
+                $("#BusinessBook_PickUpTime").prop('required', false);
+                $("#BusinessBook_ReturnPickUpDate").prop('required', false);
+                $("#BusinessBook_ReturnPickUpTime").prop('required', false);
+                $("#BusinessBook_PickUp").prop('required', false);
+                $("#BusinessBook_DropOff").prop('required', false);
+                $("#BusinessBook_Passenger").prop('required', false);
+            })
+
+            $('#tabs #bs').on('click', function (e) {
+                $('#BookingType').val('bs');
+                $("#DropOffSelectedId").prop('required', false);
+
+                $("#BusinessBook_PickUpDate").prop('required', true);
+                $("#BusinessBook_PickUpTime").prop('required', true);
+                $("#BusinessBook_ReturnPickUpDate").prop('required', true);
+                $("#BusinessBook_ReturnPickUpTime").prop('required', true);
+                $("#BusinessBook_PickUp").prop('required', true);
+                $("#BusinessBook_DropOff").prop('required', true);
+                $("#BusinessBook_Passenger").prop('required', true);
+            });
+
+            if ($('#BusinessBook_VIP').val() == 'true') {
+                $("#switch").prop("checked", true);
+            }
+            else {
+                $("#switch").prop("checked", false);
+            }
+
+            $('#switch').change();
+        });
+
+        $(document).ready(function () {
+            $.ajax({
+                url: "/Reservation/GetDropOffs",
+                type: "GET",
+                dataType: "json",
+                success: function (data) {
+                    var ManNoArray = data;
+                    var dataManNo = {};
+                    var dataFullName = {};
+                    for (var i = 0; i < ManNoArray.length; i++) {
+                        dataManNo[ManNoArray[i]] = null;
+                    }
+                    $('input.autocomplete').autocomplete({
+                        data: dataManNo,
+                        limit: 5
+                    });
+                }
+            })
+        });
+
+        $('#switch').change(function () {
+            if (this.checked) {
+                $('#BusinessBook_VIP').val('true');
+            } else {
+                $('#BusinessBook_VIP').val('false');
+            }
+        });
+    </script>
+}
